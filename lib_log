@@ -1,0 +1,46 @@
+reference:
+https://dssl.cun.io/pa/readme
+https://nju-ics.gitbooks.io/ics2018-programming-assignment/content/1.3.html
+2018-12-10:
+    完成寄存器结构的定义。将如下源码：
+typedef struct {
+  struct {
+    uint32_t _32;
+    uint16_t _16;
+    uint8_t _8[2];
+  } gpr[8];
+
+  /* Do NOT change the order of the GPRs' definitions. */
+
+  /* In NEMU, rtlreg_t is exactly uint32_t. This makes RTL instructions
+   * in PA2 able to directly access these registers.
+   */
+  rtlreg_t eax, ecx, edx, ebx, esp, ebp, esi, edi;
+
+  vaddr_t eip;
+
+} CPU_state;
+改为：
+typedef struct {
+  union{
+    union {
+      uint32_t _32;
+      uint16_t _16;
+      uint8_t _8[2];
+    } gpr[8];
+
+    /* Do NOT change the order of the GPRs' definitions. */
+
+    /* In NEMU, rtlreg_t is exactly uint32_t. This makes RTL instructions
+     * in PA2 able to directly access these registers.
+     */
+    struct {
+      rtlreg_t eax, ecx, edx, ebx, esp, ebp, esi, edi;
+    };
+  };
+  vaddr_t eip;
+} CPU_state;
+首先看gpr。该匿名联合完成的任务是使32位，16位与8位寄存器变量指向相同内存。再看rtlreg_t，该结构包含8个寄存器，并且与gpr位于同一联合，相当于给寄存器gpr分别命名，
+（eax,ecx,edx...）
+
+
