@@ -125,8 +125,8 @@ bool check_parentheses(int p, int q, int array[]){
 int choose_main_OP(int p, int q, int array[]){
 	int position_OP = -1;
 	int i = 0;
-	for(i = p; i <= q; ++i)
-		if(array[i] == 0){
+	for(i = p + 1; i <= q; ++i)
+		if(array[i] == 0 && (tokens[i-1].type != '+' || tokens[i-1].type != '-' || tokens[i-1].type != '*' || tokens[i-1].type != '/')){
 			switch(tokens[i].type){
 			case '+':
 			case '-':position_OP = i;break;
@@ -140,7 +140,7 @@ int choose_main_OP(int p, int q, int array[]){
 	return position_OP;
 }
 
-uint32_t eval(int p, int q) {
+int eval(int p, int q) {
   assert(p <= q);
 	int array[32] = {0};
 	get_paren_array(p, q, array);
@@ -149,7 +149,7 @@ uint32_t eval(int p, int q) {
  *      * For now this token should be a number.
  *           * Return the value of the number.
  *                */
-		return strtoul(tokens[p].str,0,0);
+		return atoi(tokens[p].str);
   }
   else if (check_parentheses(p, q, array) == true) {
     /* The expression is surrounded by a matched pair of parentheses.
@@ -159,6 +159,12 @@ uint32_t eval(int p, int q) {
   }
   else {
     int op = choose_main_OP(p, q, array);
+		if(op == -1){
+			if(tokens[p].type == '+') return eval(p+1, q);
+			if(tokens[p].type == '-') return -eval(p+1, q);
+			assert(0);
+		}
+
     uint32_t val1 = eval(p, op - 1);
     uint32_t val2 = eval(op + 1, q);
 
