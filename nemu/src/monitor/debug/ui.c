@@ -52,7 +52,7 @@ static int cmd_info(char *args){
 	int i = 0;
 	if(strcmp(args, "r") == 0){
 		for(i = 0; i < 8; ++i){
-			printf("%s = %d", regsl[i], cpu.gpr[i]._32);
+			printf("%s = %d \n", regsl[i], cpu.gpr[i]._32);
 		}
 	}
 	return 0;
