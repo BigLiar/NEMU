@@ -159,6 +159,7 @@ int eval(int p, int q) {
   }
   else {
     int op = choose_main_OP(p, q, array);
+		printf("%d\n", op);
 		if(op == -1){
 			if(tokens[p].type == '+') return eval(p+1, q);
 			if(tokens[p].type == '-') return -eval(p+1, q);
