@@ -59,7 +59,9 @@ static int cmd_info(char *args){
 }
 
 static int cmd_p(char *args){
-	return 0;
+	bool success = false;
+	expr(args, &success);	
+  return 0;
 }
 static struct {
   char *name;
