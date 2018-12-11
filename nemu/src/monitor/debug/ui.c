@@ -49,8 +49,11 @@ static int cmd_si(char *args){
 }
 
 static int cmd_info(char *args){
+	int i = 0;
 	if(strcmp(args, "r") == 0){
-		printf("Hello,world!");
+		for(i = 0; i < 8; ++i){
+			printf("%s = %d", regsl[i], cpu.gpr[i]._32);
+		}
 	}
 	return 0;
 }
