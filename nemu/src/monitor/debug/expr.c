@@ -85,6 +85,7 @@ static bool make_token(char *e) {
          */
 
         switch (rules[i].token_type) {
+					case TK_NOTYPE:break;
 					case TK_NB:
 						snprintf(tokens[nr_token].str, 32, "%.*s", substr_len, substr_start);
           default:
