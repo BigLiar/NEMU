@@ -90,8 +90,8 @@ static bool make_token(char *e) {
 						snprintf(tokens[nr_token].str, 32, "%.*s", substr_len, substr_start);
           default:
 						tokens[nr_token].type = rules[i].token_type;
+						nr_token++;
         }
-				nr_token ++;
         break;
       }
     }
