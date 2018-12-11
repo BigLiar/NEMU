@@ -39,8 +39,9 @@ static int cmd_q(char *args) {
 static int cmd_help(char *args);
 
 static int cmd_si(char *args){
-  	if(*args == 0)
-		cpu_exec(1);
+  	printf("%s", args);
+		if(*args == 0)
+		  cpu_exec(1);
   	else{
   		int n = atoi(args);
   	  cpu_exec(n);
