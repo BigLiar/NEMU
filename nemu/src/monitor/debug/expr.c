@@ -126,7 +126,7 @@ int choose_main_OP(int p, int q, int array[]){
 	int position_OP = -1;
 	int i = 0;
 	for(i = p + 1; i <= q; ++i)
-		if(array[i] == 0 && (tokens[i-1].type != '+' || tokens[i-1].type != '-' || tokens[i-1].type != '*' || tokens[i-1].type != '/')){
+		if(array[i] == 0 && tokens[i-1].type != '+' && tokens[i-1].type != '-' && tokens[i-1].type != '*' && tokens[i-1].type != '/'){
 			switch(tokens[i].type){
 			case '+':
 			case '-':position_OP = i;break;
