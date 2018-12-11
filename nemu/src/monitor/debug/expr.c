@@ -132,7 +132,7 @@ int choose_main_OP(int p, int q, int array[]){
 			case '-':position_OP = i;break;
 			case '*':
 			case '/':
-				if(tokens[position_OP].type != '+' || tokens[position_OP].type != '-')
+				if(tokens[position_OP].type != '+' && tokens[position_OP].type != '-')
 					position_OP = i;
 				break;
 			}
