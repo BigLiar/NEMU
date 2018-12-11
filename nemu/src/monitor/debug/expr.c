@@ -87,9 +87,9 @@ static bool make_token(char *e) {
         switch (rules[i].token_type) {
 					case TK_NB:
 						snprintf(tokens[nr_token].str, 32, "%.*s", substr_len, substr_start);
-						printf("number = %s", tokens[nr_token].str);
           default:
 						tokens[nr_token].type = rules[i].token_type;
+						printf("%d", tokens[nr_token].type);
         }
 				nr_token ++;
         break;
