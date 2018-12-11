@@ -22,8 +22,8 @@ static struct rule {
    * Pay attention to the precedence level of different rules.
    */
 	{"[0-9]+", TK_NB},    // num
-	{"\\(", TK_RP},				// right paren
-	{"\\)", TK_LP},				// left paren
+	{"\\)", TK_RP},				// right paren
+	{"\\(", TK_LP},				// left paren
   {" +", TK_NOTYPE},    // spaces
 	{"\\-", '-'},					// sub
   {"\\/", '/'},					// div
@@ -89,7 +89,6 @@ static bool make_token(char *e) {
 						snprintf(tokens[nr_token].str, 32, "%.*s", substr_len, substr_start);
           default:
 						tokens[nr_token].type = rules[i].token_type;
-						printf("%d", tokens[nr_token].type);
         }
 				nr_token ++;
         break;
@@ -105,6 +104,73 @@ static bool make_token(char *e) {
   return true;
 }
 
+void get_paren_array(int p, int q, int array[]){
+	int i = 0, count = 0;
+	for(i = p; i <= q; ++i){
+		if(tokens[i].type == TK_LP) count++;
+		if(tokens[i].type == TK_RP) count--;
+		array[i] = count;
+	}
+}
+
+bool check_parentheses(int p, int q, int array[]){
+	int i = p;
+	for(; i < q; ++i)
+		if(array[i] <= 0) return false;
+	if(array[i] != 0) return false;
+	return true;
+}
+
+int choose_main_OP(int p, int q, int array[]){
+	int position_OP = -1;
+	int i = 0;
+	for(i = p; i <= q; ++i)
+		if(array[i] == 0){
+			switch(tokens[i].type){
+			case '+':
+			case '-':position_OP = i;break;
+			case '*':
+			case '/':
+				if(tokens[position_OP].type == '*' || tokens[position_OP].type == '/')
+					position_OP = i;
+				break;
+			}
+		}
+	return position_OP;
+}
+
+uint32_t eval(int p, int q) {
+  assert(p <= q);
+	int array[32] = {0};
+	get_paren_array(p, q, array);
+  if (p == q) {
+    /* Single token.
+ *      * For now this token should be a number.
+ *           * Return the value of the number.
+ *                */
+		return strtoul(tokens[p].str,0,0);
+  }
+  else if (check_parentheses(p, q, array) == true) {
+    /* The expression is surrounded by a matched pair of parentheses.
+ *      * If that is the case, just throw away the parentheses.
+ *           */
+  	return eval(p + 1, q - 1);
+  }
+  else {
+    int op = choose_main_OP(p, q, array);
+    uint32_t val1 = eval(p, op - 1);
+    uint32_t val2 = eval(op + 1, q);
+
+    switch (tokens[op].type) {
+      case '+': return val1 + val2;
+      case '-': return val1 - val2;
+      case '*': return val1 * val2;
+      case '/': return val1 / val2;
+      default: assert(0);
+    }
+  }
+}
+
 uint32_t expr(char *e, bool *success) {
   if (!make_token(e)) {
     *success = false;
@@ -113,5 +179,5 @@ uint32_t expr(char *e, bool *success) {
 
   /* TODO: Insert codes to evaluate the expression. */
 
-  return 0;
+  return eval(0, nr_token - 1);
 }
