@@ -38,6 +38,22 @@ static int cmd_q(char *args) {
 
 static int cmd_help(char *args);
 
+static int cmd_si(char *args){
+	if(strcmp(args, "") == 0)
+		cpu_exec(1);
+	else{
+		int n = atoi(args);
+		cpu_exec(n);
+	}
+	return 0;
+}
+
+static int cmd_info(char *args){
+	if(strcmp(args, "r") == 0){
+		printf("Hello,world!");
+	}
+	return 0;
+}
 static struct {
   char *name;
   char *description;
@@ -46,7 +62,8 @@ static struct {
   { "help", "Display informations about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
-
+	{ "si", "Execute next i program line (after stopping)", cmd_si},
+	{ "info", "Display the values of registers or watchpoints", cmd_info},
   /* TODO: Add more commands */
 
 };
