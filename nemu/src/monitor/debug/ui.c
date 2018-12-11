@@ -52,9 +52,13 @@ static int cmd_info(char *args){
 	int i = 0;
 	if(strcmp(args, "r") == 0){
 		for(i = 0; i < 8; ++i){
-			printf("%s = %d(%x) \n", regsl[i], cpu.gpr[i]._32, cpu.gpr[i]._32);
+			printf("%s = %d( 0x%X ) \n", regsl[i], cpu.gpr[i]._32, cpu.gpr[i]._32);
 		}
 	}
+	return 0;
+}
+
+static int cmd_p(char *args){
 	return 0;
 }
 static struct {
@@ -67,8 +71,8 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
 	{ "si", "Execute next i program line (after stopping)", cmd_si},
 	{ "info", "Display the values of registers or watchpoints", cmd_info},
+	{ "p", " Display the value of an expression", cmd_p}
   /* TODO: Add more commands */
-
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
