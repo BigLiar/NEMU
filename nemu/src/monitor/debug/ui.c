@@ -67,13 +67,13 @@ static int cmd_p(char *args){
 
 static int cmd_w(char * args){
 	WP *wp = new_wp(args);
-	printf("Set watchpoint seccussfully!\n%s=%10d(0x%08x)", args, wp->old_value, wp->old_value);
+	printf("Set watchpoint seccussfully!\n%s = %10d\t(0x%08x)\n", args, wp->old_value, wp->old_value);
 	return 0;
 }
 
 static int cmd_d(char * args){
 	free_wp(atoi(args));
-	printf("Delete watchpoint %s seccussfully!", args);
+	printf("Delete watchpoint %s seccussfully!\n", args);
 	return 0;
 }
 
