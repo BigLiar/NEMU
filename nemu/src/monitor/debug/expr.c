@@ -147,11 +147,14 @@ int choose_main_OP(int p, int q, int array[]){
 				break;
 			case '*':
 			case '/':
-				if(tokens[position_OP].type == '*' || tokens[position_OP].type == '/' || tokens[position_OP].type == TK_AND)
+				if(tokens[position_OP].type != TK_NEQ && tokens[position_OP].type != TK_EQ 
+								&& tokens[position_OP].type != '+' && tokens[position_OP].type != '-')
 					position_OP = i;
 				break;
 			case TK_AND:
-				if(tokens[position_OP].type == TK_AND)
+				if(tokens[position_OP].type != TK_NEQ && tokens[position_OP].type != TK_EQ 
+								&& tokens[position_OP].type != '+' && tokens[position_OP].type != '-'
+								&& tokens[position_OP].type != '/' && tokens[position_OP].type != '*')
 					position_OP = i;
 				break;
 			}
