@@ -59,7 +59,6 @@ static int cmd_info(char *args){
 			for(i = 0; i < NR_WP; ++i){
 					WP* wp = show_wp(i);
 					if(wp == NULL) continue;
-					printf("0x%lx\n", (uint64_t)wp->expr_str);
 					printf("%d:\t%s = %10d\t( 0x%08x )\n", i, wp->expr_str, wp->old_value, wp->old_value);	
 			}
 	}
@@ -77,7 +76,6 @@ static int cmd_p(char *args){
 static int cmd_w(char * args){
 	WP *wp = new_wp(args);
 	printf("Set watchpoint seccussfully!\n%s = %10d\t(0x%08x)\n", args, wp->old_value, wp->old_value);
-	printf("0x%lx\n", (uint64_t)wp->expr_str);
 	return 0;
 }
 
