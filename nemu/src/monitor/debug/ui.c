@@ -7,10 +7,6 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
-extern WP wp_pool[];
-extern WP *head, *free_;
-
-
 void cpu_exec(uint64_t);
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
@@ -76,8 +72,7 @@ static int cmd_w(char * args){
 }
 
 static int cmd_d(char * args){
-	WP *wp = wp_pool+atoi(args);
-	free_wp(wp);
+	free_wp(atoi(args));
 	printf("Delete watchpoint %s seccussfully!", args);
 	return 0;
 }

@@ -31,9 +31,9 @@ WP* new_wp(char* args){
 	assert(isSuccess);
 	return head = wp_ptr;
 }
-void free_wp(WP *wp){
+void free_wp(int NO){
 	
-	 WP *wp_ptr;
+	WP *wp_ptr, *wp = wp_pool+NO;
 	for(wp_ptr = head; wp_ptr != NULL && wp_ptr->next != wp; wp_ptr = wp_ptr->next);
 	assert(wp_ptr != NULL);
 	wp_ptr->next = wp->next;
