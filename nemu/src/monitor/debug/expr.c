@@ -176,7 +176,7 @@ uint32_t get_value_by_reg_name(char reg_name[]){
 }
 int eval(int p, int q) {
   assert(p <= q);
-	int array[32] = {0};
+	int array[64] = {0};
 	get_paren_array(p, q, array);
   if (p == q) {
     /* Single token.
