@@ -7,7 +7,7 @@
 #include <regex.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ, TK_LP, TK_RP, TK_NB
+  TK_NOTYPE = 256, TK_EQ, TK_LP, TK_RP, TK_NB, TK_REG
 
   /* TODO: Add more token types */
 
@@ -21,6 +21,9 @@ static struct rule {
   /* TODO: Add more rules.
    * Pay attention to the precedence level of different rules.
    */
+	{"\\$[a-zA-A]+", TK_REG},
+												// register
+	{"0x[0-9a-fA-F]+", TK_NB},
 	{"[0-9]+", TK_NB},    // num
 	{"\\)", TK_RP},				// right paren
 	{"\\(", TK_LP},				// left paren
@@ -87,6 +90,7 @@ static bool make_token(char *e) {
         switch (rules[i].token_type) {
 					case TK_NOTYPE:break;
 					case TK_NB:
+					case TK_REG:
 						snprintf(tokens[nr_token].str, 32, "%.*s", substr_len, substr_start);
           default:
 						tokens[nr_token].type = rules[i].token_type;
@@ -140,6 +144,16 @@ int choose_main_OP(int p, int q, int array[]){
 	return position_OP;
 }
 
+uint32_t get_value_by_reg_name(char reg_name[]){
+	int i = 0;
+	for(i = 0; i < 8; ++i){
+		if(strcmp(regsl[i],reg_name) == 0) return reg_l(i);
+		if(strcmp(regsw[i],reg_name) == 0) return reg_w(i);
+		if(strcmp(regsb[i],reg_name) == 0) return reg_b(i);
+		}
+	assert(0);
+	return 0;
+}
 int eval(int p, int q) {
   assert(p <= q);
 	int array[32] = {0};
@@ -149,7 +163,10 @@ int eval(int p, int q) {
  *      * For now this token should be a number.
  *           * Return the value of the number.
  *                */
-		return atoi(tokens[p].str);
+		if(tokens[p].type == TK_NB)
+			return strtol(tokens[p].str, 0, 0);
+		if(tokens[p].type == TK_REG)
+			return get_value_by_reg_name(tokens[p].str); 
   }
   else if (check_parentheses(p, q, array) == true) {
     /* The expression is surrounded by a matched pair of parentheses.
@@ -174,8 +191,9 @@ int eval(int p, int q) {
       case '*': return val1 * val2;
       case '/': return val1 / val2;
       default: assert(0);
-    }
+    }	
   }
+	return 0;
 }
 
 uint32_t expr(char *e, bool *success) {
