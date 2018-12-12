@@ -28,6 +28,7 @@ WP* new_wp(char* args){
 	wp_ptr->expr_str = args;
 	wp_ptr->old_value = expr(args, &isSuccess);
 	assert(isSuccess);
+	printf("%s\n", wp_ptr->expr_str);
 	return head = wp_ptr;
 }
 bool free_wp(int NO){
