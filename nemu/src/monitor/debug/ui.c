@@ -61,8 +61,7 @@ static int cmd_info(char *args){
 static int cmd_p(char *args){
 	bool success = false;
 	int res = expr(args, &success);
-	printf("result:%d ( 0x%x )\n",res, res);	
-  printf("mem:%d ( %x )", vaddr_read(0x100000, 4), vaddr_read(0x100000,4));
+	printf("result:%d ( 0x%08x )\n",res, res);
 	return 0;
 }
 static struct {
