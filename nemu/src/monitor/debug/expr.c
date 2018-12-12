@@ -23,7 +23,7 @@ static struct rule {
    */
 	{"\\$[a-zA-A]+", TK_REG},
 												// register
-	{"0x[0-9a-fA-F]+", TK_NB},
+	{"0(x|X)[0-9a-fA-F]+", TK_NB},
 	{"[0-9]+", TK_NB},    // num
 	{"\\)", TK_RP},				// right paren
 	{"\\(", TK_LP},				// left paren
