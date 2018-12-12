@@ -52,7 +52,7 @@ static int cmd_info(char *args){
 	int i = 0;
 	if(strcmp(args, "r") == 0){
 		for(i = 0; i < 8; ++i){
-			printf("%s = %d( 0x%08X ) \n", regsl[i], cpu.gpr[i]._32, cpu.gpr[i]._32);
+			printf("%s = %d\t( 0x%08X ) \n", regsl[i], cpu.gpr[i]._32, cpu.gpr[i]._32);
 		}
 	}
 	return 0;
@@ -61,7 +61,7 @@ static int cmd_info(char *args){
 static int cmd_p(char *args){
 	bool success = false;
 	int res = expr(args, &success);
-	printf("result:%d ( 0x%08x )\n",res, res);
+	printf("result:%d\t( 0x%08x )\n",res, res);
 	return 0;
 }
 static struct {
