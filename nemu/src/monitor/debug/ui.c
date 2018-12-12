@@ -7,6 +7,10 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
+extern WP wp_pool[];
+extern WP *head, *free_;
+
+
 void cpu_exec(uint64_t);
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
@@ -64,6 +68,30 @@ static int cmd_p(char *args){
 	printf("\tresult:%10d\t( 0x%08x )\n",res, res);
 	return 0;
 }
+
+static int cmd_w(char * args){
+	WP *wp = new_wp(args);
+	printf("Set watchpoint seccussfully!\n%s=%10d(0x%08x)", args, wp->old_value, wp->old_value);
+	return 0;
+}
+
+static int cmd_d(char * args){
+	WP *wp = wp_pool+atoi(args);
+	free_wp(wp);
+	printf("Delete watchpoint %s seccussfully!", args);
+	return 0;
+}
+
+static int cmd_x(char * args){
+  char *arg = strtok(NULL, " ");
+  int n = atoi(arg), i = 0;
+	bool isSuccess = false;
+  arg = strtok(NULL, " ");
+	for(; i < n; ++i)
+		vaddr_read(expr(arg, &isSuccess) + i*4, 4);
+	return 0;
+}
+
 static struct {
   char *name;
   char *description;
@@ -74,8 +102,11 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
 	{ "si", "Execute next i program line (after stopping)", cmd_si},
 	{ "info", "Display the values of registers or watchpoints", cmd_info},
-	{ "p", " Display the value of an expression", cmd_p}
-  /* TODO: Add more commands */
+	{ "p", " Display the value of an expression", cmd_p},
+ 	{ "w", " Set a breakpoint of the value of an expression ", cmd_w},
+ 	{ "d", " Delete a breakpoint", cmd_d},
+	{ "x", " Display the values of memory", cmd_x}
+/* TODO: Add more commands */
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))

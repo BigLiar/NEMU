@@ -12,7 +12,9 @@ typedef struct watchpoint {
 
   /* TODO: Add more members if necessary */
 
-
 } WP;
+
 bool wp_is_changed();
+WP* new_wp(char* args);
+void free_wp(WP *wp);
 #endif
