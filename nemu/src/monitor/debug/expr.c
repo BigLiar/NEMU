@@ -166,7 +166,7 @@ int eval(int p, int q) {
 		if(tokens[p].type == TK_NB)
 			return strtol(tokens[p].str, 0, 0);
 		if(tokens[p].type == TK_REG)
-			return get_value_by_reg_name(tokens[p].str); 
+			return get_value_by_reg_name(tokens[p].str+1); 
   }
   else if (check_parentheses(p, q, array) == true) {
     /* The expression is surrounded by a matched pair of parentheses.
