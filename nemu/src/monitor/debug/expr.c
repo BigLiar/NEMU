@@ -179,6 +179,7 @@ int eval(int p, int q) {
 		if(op == -1){
 			if(tokens[p].type == '+') return eval(p+1, q);
 			if(tokens[p].type == '-') return -eval(p+1, q);
+			if(tokens[p].type == '*') return vaddr_read(eval(p+1, q), 4);
 			assert(0);
 		}
 
