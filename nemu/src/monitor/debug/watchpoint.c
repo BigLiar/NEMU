@@ -19,5 +19,36 @@ void init_wp_pool() {
 }
 
 /* TODO: Implement the functionality of watchpoint */
-
+WP* new_wp(char* args){
+	bool isSuccess;
+	WP *wp_ptr = free_;
+	if(wp_ptr == NULL)
+		assert(0);
+	free_ = wp_ptr->next;
+	wp_ptr->next = head;
+	wp_ptr->expr_str = args;
+	wp_ptr->old_value = expr(args, &isSuccess);
+	assert(isSuccess);
+	return head = wp_ptr;
+}
+void free_wp(WP *wp){
+	
+	 WP *wp_ptr;
+	for(wp_ptr = head; wp_ptr != NULL && wp_ptr->next != wp; wp_ptr = wp_ptr->next);
+	assert(wp_ptr != NULL);
+	wp_ptr->next = wp->next;
+ 
+ 	wp->next = free_;
+	free_ = wp;
+/*wp_ptr = free;
+	if(wp_ptr == NULL || wp_ptr->NO > wp->NO){
+		wp->next = free;
+		free = wp;
+	}
+	else{
+		for(wp_ptr2 = wp_ptr->next; wp_ptr != NULL && wp_ptr2->NO < wp->NO; wp_ptr = wp_ptr->next, wp_ptr2 = wp_ptr2->next);
+		wp->next = wp_ptr2;
+		wp_ptr->next = wp;
+	}*/
+}
 
