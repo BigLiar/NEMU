@@ -35,8 +35,7 @@ bool free_wp(int NO){
 	WP *wp_ptr, *wp = wp_pool+NO;
 	for(wp_ptr = head; wp_ptr != NULL && wp_ptr->next != wp; wp_ptr = wp_ptr->next);
 	if (wp_ptr == NULL) return false;
-	wp_ptr->next = wp->next;
- 
+	wp_ptr->next = wp->next; 
  	wp->next = free_;
 	free_ = wp;
 	return true;
@@ -69,7 +68,7 @@ bool wp_is_changed(){
 
 WP* show_wp(int NO){
 	assert( 0 <= NO || NO < NR_WP);
-	WP *wp_ptr, *wp = wp_pool+NO;
-	for(wp_ptr = head; wp_ptr != NULL && wp_ptr != wp; wp_ptr = wp_ptr->next);
-	return wp_ptr;
+	WP *wp = wp_pool+NO;
+	printf("%s\n", wp->expr_str);
+	return wp;
 }

@@ -59,7 +59,6 @@ static int cmd_info(char *args){
 			for(i = 0; i < NR_WP; ++i){
 					WP* wp = show_wp(i);
 					if(wp == NULL) continue;
-					printf("%s\n", wp->expr_str);
 					printf("%d:\t%s = %10d\t( 0x%08x )\n", i, wp->expr_str, wp->old_value, wp->old_value);	
 			}
 	}
