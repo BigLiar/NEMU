@@ -160,6 +160,8 @@ int choose_main_OP(int p, int q, int array[]){
 }
 
 uint32_t get_value_by_reg_name(char reg_name[]){
+	if(strcmp(reg_name, "eip") == 0)
+		return cpu.eip;
 	int i = 0;
 	for(i = 0; i < 8; ++i){
 		if(strcmp(regsl[i],reg_name) == 0) return reg_l(i);
