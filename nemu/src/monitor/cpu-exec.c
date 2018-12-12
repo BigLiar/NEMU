@@ -6,7 +6,7 @@
  * This is useful when you use the `si' command.
  * You can modify this value as you want.
  */
-#define MAX_INSTR_TO_PRINT 10
+#define MAX_INSTR_TO_PRINT 100
 
 int nemu_state = NEMU_STOP;
 
@@ -35,13 +35,12 @@ void cpu_exec(uint64_t n) {
   for (; n > 0; n --) {
     /* Execute one instruction, including instruction fetch,
      * instruction decode, and the actual execution. */
-    bool wp_changed = wp_is_changed();
-		exec_wrapper(print_flag | wp_changed);
+		exec_wrapper(print_flag);
     nr_guest_instr_add(1);
 
 #ifdef DEBUG
     /* TODO: check watchpoints here. */
-		if(wp_changed){
+		if(wp_is_changed()) {
 			nemu_state = NEMU_STOP;
 			return;
 		}
