@@ -69,7 +69,7 @@ static int cmd_info(char *args){
 static int cmd_p(char *args){
 	bool success = false;
 	int res = expr(args, &success);
-	printf("\tresult:%10d\t( 0x%08x )\n",res, res);
+	printf("result:%10d\t( 0x%08x )\n",res, res);
 	return 0;
 }
 
