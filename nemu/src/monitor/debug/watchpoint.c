@@ -71,5 +71,5 @@ WP* show_wp(int NO){
 	WP *wp = wp_pool+NO, *wp_ptr;
 	for(wp_ptr = head; wp_ptr != NULL && wp_ptr != wp; wp_ptr = wp_ptr->next);
 
-	return wp;
+	return wp_ptr;
 }
