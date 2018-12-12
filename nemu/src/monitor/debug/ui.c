@@ -38,6 +38,64 @@ static int cmd_q(char *args) {
 
 static int cmd_help(char *args);
 
+static int cmd_si(char *args){
+		if(args == NULL)
+		  cpu_exec(1);
+  	else{
+  		int n = atoi(args);
+  	  cpu_exec(n);
+  	}
+	return 0;
+}
+
+static int cmd_info(char *args){
+	int i = 0;
+	if(strcmp(args, "r") == 0){
+		for(i = 0; i < 8; ++i){
+			printf("\t%s = %10d\t( 0x%08X ) \n", regsl[i], cpu.gpr[i]._32, cpu.gpr[i]._32);
+		}
+	}
+	else if(strcmp(args, "w") == 0){
+			for(i = 0; i < NR_WP; ++i){
+					WP* wp = show_wp(i);
+					if(wp == NULL) continue;
+					printf("%d:\t%s = %10d\t( 0x%08x )\n", i, wp->expr_str, wp->old_value, wp->old_value);	
+			}
+	}
+	else assert(0);
+	return 0;
+}
+
+static int cmd_p(char *args){
+	bool success = false;
+	int res = expr(args, &success);
+	printf("\tresult:%10d\t( 0x%08x )\n",res, res);
+	return 0;
+}
+
+static int cmd_w(char * args){
+	WP *wp = new_wp(args);
+	printf("Set watchpoint seccussfully!\n%d:\t%s = %10d\t( 0x%08x )\n",wp->NO,  args, wp->old_value, wp->old_value);
+	return 0;
+}
+
+static int cmd_d(char * args){
+	bool ret = free_wp(atoi(args));
+	if(ret) printf("Delete watchpoint %s seccussfully!\n", args);
+	else printf("Invalid number! Please input againh!\n");
+	return 0;
+}
+
+static int cmd_x(char * args){
+  char *arg = strtok(NULL, " ");
+  int n = atoi(arg), i = 0;
+	bool isSuccess = false;
+  arg = strtok(NULL, " ");
+	for(; i < n; ++i)
+		vaddr_read(expr(arg, &isSuccess) + i*4, 4);
+	return 0;
+}
+
 static struct {
   char *name;
   char *description;
@@ -46,9 +104,13 @@ static struct {
   { "help", "Display informations about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
-
-  /* TODO: Add more commands */
-
+	{ "si", "Execute next i program line (after stopping)", cmd_si},
+	{ "info", "Display the values of registers or watchpoints", cmd_info},
+	{ "p", " Display the value of an expression", cmd_p},
+ 	{ "w", " Set a breakpoint of the value of an expression ", cmd_w},
+ 	{ "d", " Delete a breakpoint", cmd_d},
+	{ "x", " Display the values of memory", cmd_x}
+/* TODO: Add more commands */
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
