@@ -7,7 +7,7 @@
 #include <regex.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ, TK_LP, TK_RP, TK_NB, TK_REG
+  TK_NOTYPE = 256, TK_EQ, TK_LP, TK_RP, TK_NB, TK_REG, TK_NEQ, TK_AND
 
   /* TODO: Add more token types */
 
@@ -32,7 +32,9 @@ static struct rule {
   {"\\/", '/'},					// div
 	{"\\*", '*'},					// mult
   {"\\+", '+'},         // plus
-  {"==", TK_EQ}         // equal
+  {"==", TK_EQ},        // equal
+	{"!=", TK_NEQ},				// not equal
+	{"&&", TK_AND}				// and
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -130,13 +132,26 @@ int choose_main_OP(int p, int q, int array[]){
 	int position_OP = -1;
 	int i = 0;
 	for(i = p + 1; i <= q; ++i)
-		if(array[i] == 0 && tokens[i-1].type != '+' && tokens[i-1].type != '-' && tokens[i-1].type != '*' && tokens[i-1].type != '/'){
+		if(array[i] == 0 && tokens[i-1].type != '+' 
+						&& tokens[i-1].type != '-' && tokens[i-1].type != '*' && tokens[i-1].type != '/'
+						&& tokens[i-1].type != TK_EQ	&& tokens[i-1].type != TK_NEQ	&& tokens[i-1].type != TK_AND){
 			switch(tokens[i].type){
+			case TK_NEQ:
+			case TK_EQ:
+				position_OP = i;
+				break;
 			case '+':
-			case '-':position_OP = i;break;
+			case '-':
+				if(tokens[position_OP].type != TK_NEQ && tokens[position_OP].type != TK_EQ)
+					position_OP = i;
+				break;
 			case '*':
 			case '/':
-				if(tokens[position_OP].type != '+' && tokens[position_OP].type != '-')
+				if(tokens[position_OP].type == '*' || tokens[position_OP].type == '/' || tokens[position_OP].type == TK_AND)
+					position_OP = i;
+				break;
+			case TK_AND:
+				if(tokens[position_OP].type == TK_AND)
 					position_OP = i;
 				break;
 			}
