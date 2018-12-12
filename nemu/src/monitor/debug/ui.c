@@ -61,7 +61,7 @@ static int cmd_info(char *args){
 static int cmd_p(char *args){
 	bool success = false;
 	int res = expr(args, &success);
-	printf("result:%d ( %x )\n",res, res);	
+	printf("result:%d ( 0x%x )\n",res, res);	
   return 0;
 }
 static struct {
