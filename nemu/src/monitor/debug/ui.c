@@ -52,7 +52,7 @@ static int cmd_info(char *args){
 	int i = 0;
 	if(strcmp(args, "r") == 0){
 		for(i = 0; i < 8; ++i){
-			printf("\t%s = %8d\t( 0x%08X ) \n", regsl[i], cpu.gpr[i]._32, cpu.gpr[i]._32);
+			printf("\t%s = %10d\t( 0x%08X ) \n", regsl[i], cpu.gpr[i]._32, cpu.gpr[i]._32);
 		}
 	}
 	return 0;
