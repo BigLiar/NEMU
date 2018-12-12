@@ -76,6 +76,7 @@ static int cmd_p(char *args){
 static int cmd_w(char * args){
 	WP *wp = new_wp(args);
 	printf("Set watchpoint seccussfully!\n%s = %10d\t(0x%08x)\n", args, wp->old_value, wp->old_value);
+	printf("%s\n", wp->expr_str);
 	return 0;
 }
 

@@ -69,6 +69,5 @@ bool wp_is_changed(){
 WP* show_wp(int NO){
 	assert( 0 <= NO || NO < NR_WP);
 	WP *wp = wp_pool+NO;
-	printf("%s\n", wp->expr_str);
 	return wp;
 }
