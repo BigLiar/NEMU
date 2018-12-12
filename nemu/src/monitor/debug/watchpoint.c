@@ -27,6 +27,7 @@ WP* new_wp(char* args){
 	free_ = wp_ptr->next;
 	wp_ptr->next = head;
 	wp_ptr->expr_str = args;
+	printf("%s\n", args);
 	wp_ptr->old_value = expr(args, &isSuccess);
 	assert(isSuccess);
 	return head = wp_ptr;
