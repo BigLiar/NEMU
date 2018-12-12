@@ -34,7 +34,7 @@ bool free_wp(int NO){
 	
 	WP *wp_ptr = head, *wp = wp_pool+NO;
 	if(head == wp){
-		head = NULL;
+		head = wp->next;
 		return true;
 	}
 	else{
