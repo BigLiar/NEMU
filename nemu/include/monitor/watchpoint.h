@@ -14,5 +14,5 @@ typedef struct watchpoint {
 
 
 } WP;
-
+bool wp_is_changed();
 #endif
