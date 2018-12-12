@@ -55,6 +55,13 @@ static int cmd_info(char *args){
 			printf("\t%s = %10d\t( 0x%08X ) \n", regsl[i], cpu.gpr[i]._32, cpu.gpr[i]._32);
 		}
 	}
+	else if(strcmp(args, "w") == 0){
+			for(i = 0; i < NR_WP; ++i){
+					WP* wp = show_wp(i);
+					printf("%d:/t%s = %10d\t( 0x%08x )\n", i, wp->expr_str, wp->old_value, wp->old_value);	
+			}
+	}
+	else assert(0);
 	return 0;
 }
 
@@ -72,8 +79,9 @@ static int cmd_w(char * args){
 }
 
 static int cmd_d(char * args){
-	free_wp(atoi(args));
-	printf("Delete watchpoint %s seccussfully!\n", args);
+	bool ret = free_wp(atoi(args));
+	if(ret) printf("Delete watchpoint %s seccussfully!\n", args);
+	else printf("Invalid number! Please input againh!\n");
 	return 0;
 }
 

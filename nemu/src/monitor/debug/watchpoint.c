@@ -1,7 +1,6 @@
 #include "monitor/watchpoint.h"
 #include "monitor/expr.h"
 
-#define NR_WP 32
 static WP wp_pool[NR_WP];
 static WP *head, *free_;
 
@@ -31,15 +30,16 @@ WP* new_wp(char* args){
 	assert(isSuccess);
 	return head = wp_ptr;
 }
-void free_wp(int NO){
+bool free_wp(int NO){
 	
 	WP *wp_ptr, *wp = wp_pool+NO;
 	for(wp_ptr = head; wp_ptr != NULL && wp_ptr->next != wp; wp_ptr = wp_ptr->next);
-	assert(wp_ptr != NULL);
+	if (wp_ptr == NULL) return false;
 	wp_ptr->next = wp->next;
  
  	wp->next = free_;
 	free_ = wp;
+	return true;
 /*wp_ptr = free;
 	if(wp_ptr == NULL || wp_ptr->NO > wp->NO){
 		wp->next = free;
@@ -65,4 +65,11 @@ bool wp_is_changed(){
 			}
 		}
 		return res;
+}
+
+WP* show_wp(int NO){
+	assert( 0 <= NO || NO < NR_WP);
+	WP *wp_ptr, *wp = wp_pool+NO;
+	for(wp_ptr = head; wp_ptr != NULL && wp_ptr != wp; wp_ptr = wp_ptr->next);
+	return wp_ptr;
 }
