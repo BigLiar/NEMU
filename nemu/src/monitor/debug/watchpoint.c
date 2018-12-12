@@ -32,10 +32,16 @@ WP* new_wp(char* args){
 }
 bool free_wp(int NO){
 	
-	WP *wp_ptr, *wp = wp_pool+NO;
-	for(wp_ptr = head; wp_ptr != NULL && wp_ptr->next != wp; wp_ptr = wp_ptr->next);
-	if (wp_ptr == NULL) return false;
-	wp_ptr->next = wp->next; 
+	WP *wp_ptr = head, *wp = wp_pool+NO;
+	if(head == wp){
+		head = NULL;
+		return true;
+	}
+	else{
+		for(wp_ptr = head; wp_ptr != NULL && wp_ptr->next != wp; wp_ptr = wp_ptr->next);
+		if (wp_ptr == NULL) return false;
+		wp_ptr->next = wp->next; 
+	}
  	wp->next = free_;
 	free_ = wp;
 	return true;
