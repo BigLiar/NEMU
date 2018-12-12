@@ -64,7 +64,7 @@ bool wp_is_changed(){
 		for(wp_ptr = head; wp_ptr != NULL; wp_ptr = wp_ptr->next){
 			uint32_t new_value= expr(wp_ptr->expr_str, &isSuccess);
 			if(new_value != wp_ptr->old_value){
-				printf("Program execution has interrupted.\nWatchpoint %d:%s:\n%u -----> %u\n", wp_ptr->NO, wp_ptr->expr_str, wp_ptr->old_value, new_value);
+				printf("Program execution has interrupted.\nWatchpoint %d:%s:\n%10u -----> %10u\n", wp_ptr->NO, wp_ptr->expr_str, wp_ptr->old_value, new_value);
 
 				wp_ptr->old_value = new_value;
 				res = true;
