@@ -56,10 +56,10 @@ static int cmd_info(char *args){
 		}
 	}
 	else if(strcmp(args, "w") == 0){
-			for(i = 1; i <= NR_WP; ++i){
+			for(i = 0; i < NR_WP; ++i){
 					WP* wp = show_wp(i);
 					if(wp == NULL) continue;
-					printf("%d:\t%s = %10d\t( 0x%08x )\n", i, wp->expr_str, wp->old_value, wp->old_value);	
+					printf("%d:\t%s = %10d\t( 0x%08x )\n", i+1, wp->expr_str, wp->old_value, wp->old_value);	
 			}
 	}
 	else assert(0);
