@@ -67,9 +67,12 @@ static int cmd_info(char *args){
 }
 
 static int cmd_p(char *args){
-	bool success = false;
+	bool success = true;
 	int res = expr(args, &success);
-	printf("result:%10d\t( 0x%08x )\n",res, res);
+	if(success == false)
+		printf("Invalid input!");
+	else 
+		printf("result:%10d\t( 0x%08x )\n",res, res);
 	return 0;
 }
 

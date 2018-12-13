@@ -174,10 +174,18 @@ uint32_t get_value_by_reg_name(char reg_name[]){
 	assert(0);
 	return 0;
 }
-int eval(int p, int q) {
-  assert(p <= q);
+int eval(int p, int q, bool *success) {
+  if(q < p) *success = false;
+	if(*success == false) return 0;
 	int array[64] = {0};
 	get_paren_array(p, q, array);
+	int i = 0;
+	for(i = p; i <= q; ++i){
+		if(array[i] < 0){
+			*success = false;
+			return 0;
+		}
+	}
   if (p == q) {
     /* Single token.
  *      * For now this token should be a number.
@@ -192,19 +200,20 @@ int eval(int p, int q) {
     /* The expression is surrounded by a matched pair of parentheses.
  *      * If that is the case, just throw away the parentheses.
  *           */
-  	return eval(p + 1, q - 1);
+  	return eval(p + 1, q - 1, success);
   }
   else {
     int op = choose_main_OP(p, q, array);
 		if(op == -1){
-			if(tokens[p].type == '+') return eval(p+1, q);
-			if(tokens[p].type == '-') return -eval(p+1, q);
-			if(tokens[p].type == '*') return vaddr_read(eval(p+1, q), 4);
-			assert(0);
+			if(tokens[p].type == '+') return eval(p+1, q, success);
+			if(tokens[p].type == '-') return -eval(p+1, q, success);
+			if(tokens[p].type == '*') return vaddr_read(eval(p+1, q, success), 4);
+			*success = false;
+			return 0;
 		}
 
-    uint32_t val1 = eval(p, op - 1);
-    uint32_t val2 = eval(op + 1, q);
+    uint32_t val1 = eval(p, op - 1, success);
+    uint32_t val2 = eval(op + 1, q, success);
 
     switch (tokens[op].type) {
       case '+': return val1 + val2;
@@ -228,5 +237,5 @@ uint32_t expr(char *e, bool *success) {
 
   /* TODO: Insert codes to evaluate the expression. */
   *success = true;
-  return eval(0, nr_token - 1);
+  return eval(0, nr_token - 1, success);
 }
