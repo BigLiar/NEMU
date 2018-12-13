@@ -70,7 +70,7 @@ static int cmd_p(char *args){
 	bool success = true;
 	int res = expr(args, &success);
 	if(success == false)
-		printf("Invalid input!");
+		printf("Invalid input!\n");
 	else 
 		printf("result:%10d\t( 0x%08x )\n",res, res);
 	return 0;
