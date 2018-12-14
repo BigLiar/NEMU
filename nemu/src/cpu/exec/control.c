@@ -33,13 +33,11 @@ make_EHelper(call) {
 }
 
 make_EHelper(ret) {
-
 	rtl_pop(eip);
 	rtl_jr(eip);
-
 	decoding.jmp_eip = id_dest->val + *eip;
   print_asm("call %x", decoding.jmp_eip);
-  print_asm("ret");
+
 }
 
 make_EHelper(call_rm) {
