@@ -7,8 +7,8 @@ make_EHelper(add) {
 }
 
 make_EHelper(sub) {
-	rtl_sext(&at, &id_src->val, id_src->width);
-  rtl_sub(&id_dest->val, &id_dest->val, &at);
+	rtl_sext(&t0, &id_src->val, id_src->width);
+  rtl_sub(&id_dest->val, &id_dest->val, &t0);
 	operand_write(id_dest, &id_dest->val);
   print_asm_template2(sub);
 }
