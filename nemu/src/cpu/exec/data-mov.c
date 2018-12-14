@@ -44,8 +44,40 @@ make_EHelper(push) {
 }
 
 make_EHelper(pop) {
-  TODO();
-
+	switch(decoding.opcode){
+		case 0x58:
+			rtl_pop(&cpu.eax);
+			strcpy(id_dest->str, "%eax");
+			break;
+		case 0x59:
+			rtl_pop(&cpu.ecx);
+			strcpy(id_dest->str, "%ecx");
+			break;
+		case 0x5a:
+			rtl_pop(&cpu.edx);
+			strcpy(id_dest->str, "%edx");
+			break;
+		case 0x5b:
+			rtl_pop(&cpu.ebx);
+			strcpy(id_dest->str, "%ebx");
+			break;
+		case 0x5c:
+			rtl_pop(&cpu.esp);
+			strcpy(id_dest->str, "%esp");
+			break;
+		case 0x5d:
+			rtl_pop(&cpu.ebp);
+			strcpy(id_dest->str, "%ebp");
+			break;
+		case 0x5e:
+			rtl_pop(&cpu.esi);
+			strcpy(id_dest->str, "%esi");
+			break;
+		case 0x5f:
+			rtl_pop(&cpu.edi);
+			strcpy(id_dest->str, "%edi");
+			break;
+	}
   print_asm_template1(pop);
 }
 
