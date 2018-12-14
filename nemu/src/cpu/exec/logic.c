@@ -16,8 +16,8 @@ make_EHelper(and) {
 make_EHelper(xor) {
   printf("0x%x\n", cpu.eax);
 
-	rtl_xor(&id_dest->val, &id_src->val, &at);
-	operand_write(id_dest, &id_dest->val);
+	rtl_xor(&at, &id_src->val, &id_src->val);
+	operand_write(id_dest, &at);
 	printf("0x%x\n", cpu.eax);
   print_asm_template2(xor);
 }
