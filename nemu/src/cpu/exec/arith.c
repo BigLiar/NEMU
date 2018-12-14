@@ -9,8 +9,9 @@ make_EHelper(add) {
 make_EHelper(sub) {
 	printf("0x%x\n", id_src->width);
 	rtl_sext(&at, &id_src->val, id_src->width);
-	printf("0x%x\n0x%x\n", at, id_dest->val);
- 	operand_write(id_dest, &at);
+	printf("0x%x\n", id_dest->reg);
+ 	printf("0x%x\n",cpu.esp);
+  operand_write(id_dest, &at);
 	printf("0x%x\n",cpu.esp);
   print_asm_template2(sub);
 }
