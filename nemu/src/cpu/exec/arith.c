@@ -7,8 +7,10 @@ make_EHelper(add) {
 }
 
 make_EHelper(sub) {
-  TODO();
-
+	printf("0x%x\n", id_src->width);
+	rtl_sext(&at, &id_src->val, id_src->width);
+	printf("0x%x\n", at);
+ 	operand_write(id_dest, &at);
   print_asm_template2(sub);
 }
 
