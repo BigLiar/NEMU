@@ -6,8 +6,33 @@ make_EHelper(mov) {
 }
 
 make_EHelper(push) {
-  TODO();
-
+	printf("0x%x", decoding.opcode);
+	switch(decoding.opcode){
+		case 0x50:
+			rtl_push(&cpu.eax);
+			break;
+		case 0x51:
+			rtl_push(&cpu.ebx);
+			break;
+		case 0x52:
+			rtl_push(&cpu.ecx);
+			break;
+		case 0x53:
+			rtl_push(&cpu.edx);
+			break;
+		case 0x54:
+			rtl_push(&cpu.esp);
+			break;
+		case 0x55:
+			rtl_push(&cpu.ebp);
+			break;
+		case 0x56:
+			rtl_push(&cpu.esi);
+			break;
+		case 0x57:
+			rtl_push(&cpu.edi);
+			break;
+	}
   print_asm_template1(push);
 }
 
