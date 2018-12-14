@@ -10,27 +10,35 @@ make_EHelper(push) {
 	switch(decoding.opcode){
 		case 0x50:
 			rtl_push(&cpu.eax);
+			strcpy(id_dest->str, "%eax");
 			break;
 		case 0x51:
-			rtl_push(&cpu.ebx);
+			rtl_push(&cpu.ecx);
+			strcpy(id_dest->str, "%ecx");
 			break;
 		case 0x52:
-			rtl_push(&cpu.ecx);
+			rtl_push(&cpu.edx);
+			strcpy(id_dest->str, "%edx");
 			break;
 		case 0x53:
-			rtl_push(&cpu.edx);
+			rtl_push(&cpu.ebx);
+			strcpy(id_dest->str, "%ebx");
 			break;
 		case 0x54:
 			rtl_push(&cpu.esp);
+			strcpy(id_dest->str, "%esp");
 			break;
 		case 0x55:
 			rtl_push(&cpu.ebp);
+			strcpy(id_dest->str, "%ebp");
 			break;
 		case 0x56:
 			rtl_push(&cpu.esi);
+			strcpy(id_dest->str, "%esi");
 			break;
 		case 0x57:
 			rtl_push(&cpu.edi);
+			strcpy(id_dest->str, "%edi");
 			break;
 	}
   print_asm_template1(push);
