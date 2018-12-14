@@ -6,7 +6,7 @@ make_EHelper(mov) {
 }
 
 make_EHelper(push) {
-	printf("0x%x", decoding.opcode);
+	printf("0x%x,0x%x", decoding.opcode, cpu.ebx);
 	switch(decoding.opcode){
 		case 0x50:
 			rtl_push(&cpu.eax);
