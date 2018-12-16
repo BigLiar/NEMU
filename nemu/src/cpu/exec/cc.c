@@ -15,11 +15,21 @@ void rtl_setcc(rtlreg_t* dest, uint8_t subcode) {
   // dest <- ( cc is satisfied ? 1 : 0)
   switch (subcode & 0xe) {
     case CC_O:
+				rtl_get_OF(dest);
+				break;
     case CC_B:
+				break;
     case CC_E:
+				rtl_get_ZF(dest);
+				break;
     case CC_BE:
+				rtl_get_ZF(dest);
+				break;
     case CC_S:
+				rtl_get_SF(dest);
+				break;
     case CC_L:
+				break;
     case CC_LE:
       TODO();
     default: panic("should not reach here");
