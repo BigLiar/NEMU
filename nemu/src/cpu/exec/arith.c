@@ -1,8 +1,9 @@
 #include "cpu/exec.h"
 
 make_EHelper(add) {
-  TODO();
-
+  rtl_sext(&t0, &id_src->val, id_src->width);
+  rtl_add(&id_dest->val, &id_dest->val, &t0);
+	operand_write(id_dest, &id_dest->val);
   print_asm_template2(add);
 }
 

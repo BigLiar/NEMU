@@ -9,4 +9,7 @@ make_EHelper(ret);
 make_EHelper(inv);
 make_EHelper(nemu_trap);
 make_EHelper(sub);
+make_EHelper(add);
 make_EHelper(xor);
+make_EHelper(and);
+make_EHelper(or);
