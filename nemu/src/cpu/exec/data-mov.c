@@ -7,7 +7,6 @@ make_EHelper(mov) {
 
 make_EHelper(push) {
 	uint32_t cc = decoding.opcode & 0xf;
-	printf("0x%x\n", cc);
 	id_dest->val = id_dest->width == 2 ? cpu.gpr[cc]._16 : cpu.gpr[cc]._32;
 	char reg_name[10] = "%";
 	strcat(reg_name, id_dest->width == 2 ? regsw[cc] : regsl[cc]);
@@ -18,40 +17,14 @@ make_EHelper(push) {
 }
 
 make_EHelper(pop) {
-	switch(decoding.opcode){
-		case 0x58:
-			rtl_pop(&cpu.eax);
-			strcpy(id_dest->str, "%eax");
-			break;
-		case 0x59:
-			rtl_pop(&cpu.ecx);
-			strcpy(id_dest->str, "%ecx");
-			break;
-		case 0x5a:
-			rtl_pop(&cpu.edx);
-			strcpy(id_dest->str, "%edx");
-			break;
-		case 0x5b:
-			rtl_pop(&cpu.ebx);
-			strcpy(id_dest->str, "%ebx");
-			break;
-		case 0x5c:
-			rtl_pop(&cpu.esp);
-			strcpy(id_dest->str, "%esp");
-			break;
-		case 0x5d:
-			rtl_pop(&cpu.ebp);
-			strcpy(id_dest->str, "%ebp");
-			break;
-		case 0x5e:
-			rtl_pop(&cpu.esi);
-			strcpy(id_dest->str, "%esi");
-			break;
-		case 0x5f:
-			rtl_pop(&cpu.edi);
-			strcpy(id_dest->str, "%edi");
-			break;
-	}
+	uint32_t cc = decoding.opcode & 0xf;
+	rtl_pop(&id_dest->val);
+	char reg_name[10] = "%";
+	strcat(reg_name, id_dest->width == 2 ? regsw[cc] : regsl[cc]);
+	strcpy(id_dest->str, reg_name);
+	printf("%d, 0x%x\n", id_dest->val, id_dest->val);
+	cpu.gpr[cc]._32 = id_dest->val;
+
   print_asm_template1(pop);
 }
 
