@@ -7,7 +7,7 @@ make_EHelper(mov) {
 
 make_EHelper(push) {
 	uint32_t cc = decoding.opcode && 0x7;
-	printf("%d", cc);
+	printf("%d\n", cc);
 	id_dest->val = id_dest->width == 2 ? cpu.gpr[cc]._16 : cpu.gpr[cc]._32;
 	char reg_name[10] = "%";
 	strcat(reg_name, id_dest->width == 2 ? regsw[cc] : regsl[cc]);
