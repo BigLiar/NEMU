@@ -6,40 +6,13 @@ make_EHelper(mov) {
 }
 
 make_EHelper(push) {
-	switch(decoding.opcode){
-		case 0x50:
-			rtl_push(&cpu.eax);
-			strcpy(id_dest->str, "%eax");
-			break;
-		case 0x51:
-			rtl_push(&cpu.ecx);
-			strcpy(id_dest->str, "%ecx");
-			break;
-		case 0x52:
-			rtl_push(&cpu.edx);
-			strcpy(id_dest->str, "%edx");
-			break;
-		case 0x53:
-			rtl_push(&cpu.ebx);
-			strcpy(id_dest->str, "%ebx");
-			break;
-		case 0x54:
-			rtl_push(&cpu.esp);
-			strcpy(id_dest->str, "%esp");
-			break;
-		case 0x55:
-			rtl_push(&cpu.ebp);
-			strcpy(id_dest->str, "%ebp");
-			break;
-		case 0x56:
-			rtl_push(&cpu.esi);
-			strcpy(id_dest->str, "%esi");
-			break;
-		case 0x57:
-			rtl_push(&cpu.edi);
-			strcpy(id_dest->str, "%edi");
-			break;
-	}
+	uint32_t cc = decoding.opcode && 0x7;
+	id_dest->val = id_dest->width == 2 ? cpu.gpr[cc]._16 : cpu.gpr[cc]._32;
+	char reg_name[10] = "%";
+	strcat(reg_name, id_dest->width == 2 ? regsw[cc] : regsl[cc]);
+	strcpy(id_dest->str, reg_name);
+	rtl_push(&id_dest->val);
+	printf("%d, 0x%x\n", id_dest->val, id_dest->val);
   print_asm_template1(push);
 }
 
@@ -125,12 +98,15 @@ make_EHelper(movsx) {
   id_dest->width = decoding.is_operand_size_16 ? 2 : 4;
   rtl_sext(&t0, &id_src->val, id_src->width);
   operand_write(id_dest, &t0);
+	printf("%d, 0x%x\n", t0, t0);
+
   print_asm_template2(movsx);
 }
 
 make_EHelper(movzx) {
   id_dest->width = decoding.is_operand_size_16 ? 2 : 4;
   operand_write(id_dest, &id_src->val);
+	printf("%d, 0x%x\n", t0, t0);
   print_asm_template2(movzx);
 }
 
