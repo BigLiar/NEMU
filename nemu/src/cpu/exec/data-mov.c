@@ -6,7 +6,7 @@ make_EHelper(mov) {
 }
 
 make_EHelper(push) {
-	uint32_t cc = decoding.opcode && 0xf;
+	uint32_t cc = decoding.opcode & 0xf;
 	printf("0x%x\n", cc);
 	id_dest->val = id_dest->width == 2 ? cpu.gpr[cc]._16 : cpu.gpr[cc]._32;
 	char reg_name[10] = "%";
