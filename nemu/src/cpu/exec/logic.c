@@ -7,12 +7,14 @@ make_EHelper(test) {
 	rtl_set_OF(0);
 	rtl_update_SF(&t0, id_dest->width);
 	rtl_update_ZF(&t0, id_dest->width);
+	printf("%d, 0x%x\n", id_dest->val, id_dest->val);
   print_asm_template2(test);
 }
 
 make_EHelper(and) {
   rtl_and(&t0, &id_dest->val, &id_src->val);
 	operand_write(id_dest, &t0);
+	printf("%d, 0x%x\n", id_dest->val, id_dest->val);
 
   print_asm_template2(and);
 }
@@ -20,12 +22,14 @@ make_EHelper(and) {
 make_EHelper(xor) {
   rtl_xor(&t0, &id_dest->val, &id_src->val);
 	operand_write(id_dest, &t0);
+	printf("%d, 0x%x\n", id_dest->val, id_dest->val);
   print_asm_template2(xor);
 }
 
 make_EHelper(or) {
   rtl_or(&t0, &id_dest->val, &id_src->val);
 	operand_write(id_dest, &t0);
+	printf("%d, 0x%x\n", id_dest->val, id_dest->val);
 
   print_asm_template2(or);
 }
