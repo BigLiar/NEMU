@@ -53,11 +53,11 @@ make_EHelper(leave) {
 make_EHelper(cltd) {
   if (decoding.is_operand_size_16) {
     t0 = !!(cpu.gpr[0]._16 & 0x8000);
-		cpu.gpr[2]._16 = 0xffff;
+		cpu.gpr[2]._16 = t0 ? 0xffff : 0;
   }
   else {
     t0 = !!(cpu.gpr[0]._32 & 0x80000000);
-		cpu.gpr[2]._32 = 0xffffffff;
+		cpu.gpr[2]._32 = t0 ? 0xffffffff : 0;
   }
 
 	printf("cltd-EAX:%d, ctld-EDX:0x%x\n", t0, cpu.edx);
