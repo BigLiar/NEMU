@@ -201,12 +201,12 @@ static inline void rtl_update_ZF(const rtlreg_t* result, int width) {
   uint32_t i = 0, flags = 0;
 	for(i = 0; i < width; ++i)
 		flags = flags << 8 && 0xff;
-	cpu.eflags.ZF = !(*result && flags);
+	cpu.eflags.ZF = !(*result & flags);
 }
 
 static inline void rtl_update_SF(const rtlreg_t* result, int width) {
   // eflags.SF <- is_sign(result[width * 8 - 1 .. 0])
-	cpu.eflags.SF = *result >> (width * 8 - 1) && 1;
+	cpu.eflags.SF = *result >> (width * 8 - 1) & 1;
 }
 
 static inline void rtl_update_ZFSF(const rtlreg_t* result, int width) {
