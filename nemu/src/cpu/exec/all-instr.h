@@ -1,5 +1,6 @@
 #include "cpu/exec.h"
 
+make_EHelper(nop);
 make_EHelper(mov);
 make_EHelper(movzx);
 make_EHelper(lea);
