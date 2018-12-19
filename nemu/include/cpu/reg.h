@@ -32,7 +32,7 @@ typedef struct {
 		};
 	};
   vaddr_t eip;
-	union{
+	struct{
 		uint32_t not_care_0 : 20;
 		uint32_t OF : 1;
 		uint32_t not_care_1 : 1;
