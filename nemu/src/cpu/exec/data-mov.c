@@ -6,7 +6,7 @@ make_EHelper(mov) {
 }
 
 make_EHelper(push) {
-	uint32_t cc = decoding.opcode & 0xf;
+	uint32_t cc = decoding.opcode & 0x7;
 
 	id_dest->val = id_dest->width == 2 ? cpu.gpr[cc]._16 : cpu.gpr[cc]._32;
 	char reg_name[10] = "%";
@@ -17,8 +17,8 @@ make_EHelper(push) {
 }
 
 make_EHelper(pop) {
-	uint32_t cc = decoding.opcode & 0xf;
-	Log("%d", cc);
+	uint32_t cc = decoding.opcode & 0x7;
+	Log("%x", cc);
 	char reg_name[10] = "%";
 	strcat(reg_name, id_dest->width == 2 ? regsw[cc] : regsl[cc]);
 	assert(0);
