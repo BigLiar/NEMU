@@ -2,7 +2,6 @@
 
 make_EHelper(mov) {
   operand_write(id_dest, &id_src->val);
-	printf("0x%x\n", id_src->val);
   print_asm_template2(mov);
 }
 
@@ -24,7 +23,6 @@ make_EHelper(pop) {
 	strcpy(id_dest->str, reg_name);
 
 	rtl_pop(&cpu.gpr[cc]._32);
-	printf("esp:%d, 0x%x\n", id_src->addr, id_src->addr);
   print_asm_template1(pop);
 }
 
