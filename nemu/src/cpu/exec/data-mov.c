@@ -88,6 +88,7 @@ make_EHelper(movzx) {
 make_EHelper(lea) {
 	printf("1\n");
   operand_write(id_dest, &id_src->addr);
-	printf("1\n");
   print_asm_template2(lea);
+
+	printf("1\n");
 }
