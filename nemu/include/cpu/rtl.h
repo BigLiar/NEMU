@@ -202,7 +202,7 @@ static inline void rtl_update_ZF(const rtlreg_t* result, int width) {
 	for(i = 0; i < width; ++i)
 		flags = (flags << 8) | 0xff;
 	cpu.eflags.ZF = !(*result & flags);
-	printf("flag:0x%d, result:0x%x ,ZF:%d\n", flags, *result, cpu.eflags.ZF);
+	printf("flag:0x%x, result:0x%x ,ZF:%d\n", flags, *result, cpu.eflags.ZF);
 }
 
 static inline void rtl_update_SF(const rtlreg_t* result, int width) {
