@@ -39,9 +39,9 @@ make_EHelper(popa) {
 }
 
 make_EHelper(leave) {
-	if(16 == id_src->width)
+	if(2 == id_src->width)
 		cpu.gpr[4]._16 = cpu.gpr[5]._16;
-	else if(32 == id_src->width)
+	else if(4 == id_src->width)
 		cpu.gpr[4]._32 = cpu.gpr[5]._32;
 	else
 		assert(0);
