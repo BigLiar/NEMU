@@ -171,7 +171,7 @@ make_EHelper(mul) {
 make_EHelper(imul1) {
   rtl_lr(&t0, R_EAX, id_dest->width);
   rtl_imul_lo(&t1, &id_dest->val, &t0);
-
+  printf("0x%x 0x%x\n", id_dest->val, t0);
   switch (id_dest->width) {
     case 1:
       rtl_sr(R_AX, &t1, 2);
@@ -188,7 +188,7 @@ make_EHelper(imul1) {
       break;
     default: assert(0);
   }
-
+  printf("EDX:0x%x, EAX:0x%x\n", t2, t1);
   print_asm_template1(imul);
 }
 
