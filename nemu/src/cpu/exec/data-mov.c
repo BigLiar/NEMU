@@ -17,8 +17,8 @@ make_EHelper(push) {
 
 make_EHelper(pop) {
 	uint32_t cc = decoding.opcode & 0xf;
-	rtl_pop(&id_dest->val);
 	printf("1");
+	rtl_pop(&id_dest->val);
 	char reg_name[10] = "%";
 	strcat(reg_name, id_dest->width == 2 ? regsw[cc] : regsl[cc]);
 	strcpy(id_dest->str, reg_name);
