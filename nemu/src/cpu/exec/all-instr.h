@@ -4,6 +4,7 @@ make_EHelper(mov);
 make_EHelper(movzx);
 make_EHelper(lea);
 make_EHelper(call);
+make_EHelper(leave);
 make_EHelper(test);
 make_EHelper(jcc);
 make_EHelper(operand_size);

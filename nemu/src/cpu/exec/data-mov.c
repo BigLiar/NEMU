@@ -39,8 +39,13 @@ make_EHelper(popa) {
 }
 
 make_EHelper(leave) {
-  TODO();
-
+	if(16 == id_src->width)
+		cpu.gpr[4]._16 = cpu.gpr[5]._16;
+	else if(32 == id_src->width)
+		cpu.gpr[4]._32 = cpu.gpr[5]._32;
+	else
+		assert(0);
+	rtl_pop(&cpu.ebp);
   print_asm("leave");
 }
 
