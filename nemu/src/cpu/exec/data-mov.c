@@ -16,7 +16,7 @@ make_EHelper(push) {
 }
 
 make_EHelper(pop) {
-	printf("1");
+	assert(0);
 	uint32_t cc = decoding.opcode & 0xf;
 	rtl_pop(&id_dest->val);
 	char reg_name[10] = "%";
@@ -91,6 +91,4 @@ make_EHelper(movzx) {
 make_EHelper(lea) {
   operand_write(id_dest, &id_src->addr);
   print_asm_template2(lea);
-
-	printf("1");
 }
