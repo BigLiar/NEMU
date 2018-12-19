@@ -30,19 +30,26 @@ make_EHelper(inc) {
 	t0 = 1;
 	rtl_add(&id_dest->val, &id_dest->val, &t0);
 
-	printf("%d 0x%x\n", cpu.gpr[cc]._32, cpu.gpr[cc]._32);
 	rtl_sr(cc, &id_dest->val, id_dest->width);
 	char reg_name[10] = "%";
 	strcat(reg_name, id_dest->width == 2 ? regsw[cc] : regsl[cc]);
 	strcpy(id_dest->str, reg_name);
   
-	printf("%d 0x%x\n", cpu.gpr[cc]._32, cpu.gpr[cc]._32);
   print_asm_template1(inc);
 }
 
 make_EHelper(dec) {
-  TODO();
+	uint32_t cc = decoding.opcode & 0xf;
+	id_dest->val = id_dest->width == 2 ? cpu.gpr[cc]._16 : cpu.gpr[cc]._32;
+	t0 = 1;
+	rtl_sub(&id_dest->val, &id_dest->val, &t0);
 
+	rtl_sr(cc, &id_dest->val, id_dest->width);
+	char reg_name[10] = "%";
+	strcat(reg_name, id_dest->width == 2 ? regsw[cc] : regsl[cc]);
+	strcpy(id_dest->str, reg_name);
+  
+  print_asm_template1(inc);
   print_asm_template1(dec);
 }
 
