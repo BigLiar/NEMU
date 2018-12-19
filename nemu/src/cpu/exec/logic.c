@@ -7,7 +7,7 @@ make_EHelper(test) {
 	rtl_set_OF(0);
 	rtl_update_SF(&t0, id_dest->width);
 	rtl_update_ZF(&t0, id_dest->width);
-	printf("%d, 0x%x\n", t0, t0);
+	printf("%d, 0x%x\n", cpu.eflags.ZF, t0);
   print_asm_template2(test);
 }
 
