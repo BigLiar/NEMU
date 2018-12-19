@@ -212,6 +212,7 @@ static inline void rtl_update_SF(const rtlreg_t* result, int width) {
 
 static inline void rtl_update_ZFSF(const rtlreg_t* result, int width) {
   rtl_update_ZF(result, width);
+	printf("ZF:%d  ", cpu.eflags.ZF);
   rtl_update_SF(result, width);
 	printf("ZF:%d  ", cpu.eflags.ZF);
 }
