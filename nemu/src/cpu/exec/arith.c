@@ -29,12 +29,14 @@ make_EHelper(inc) {
 	id_dest->val = id_dest->width == 2 ? cpu.gpr[cc]._16 : cpu.gpr[cc]._32;
 	t0 = 1;
 	rtl_add(&id_dest->val, &id_dest->val, &t0);
+
+	printf("%d 0x%x\n", cpu.gpr[cc]._32, cpu.gpr[cc]._32);
 	rtl_sr(cc, &id_dest->val, id_dest->width);
 	char reg_name[10] = "%";
 	strcat(reg_name, id_dest->width == 2 ? regsw[cc] : regsl[cc]);
 	strcpy(id_dest->str, reg_name);
   
-	printf("%d 0x%x\n", id_dest->val, id_dest->val);
+	printf("%d 0x%x\n", cpu.gpr[cc]._32, cpu.gpr[cc]._32);
   print_asm_template1(inc);
 }
 
