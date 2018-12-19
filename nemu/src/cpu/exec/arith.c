@@ -18,9 +18,12 @@ make_EHelper(sub) {
 
 make_EHelper(cmp) {
 	rtl_sext(&t0, &id_src->val, id_src->width);
-  rtl_sub(&id_dest->val, &id_dest->val, &t0);
+  printf("src:%d dest:%d", id_src->val, id_dest->val);
+	rtl_sub(&id_dest->val, &id_dest->val, &t0);
 	rtl_update_ZFSF(&id_dest->val, id_dest->width);
-
+	
+  printf("src:%d dest:%d, ZF:%d", id_src->val, id_dest->val, cpu.eflags.ZF);
+	
   print_asm_template2(cmp);
 }
 
@@ -29,7 +32,7 @@ make_EHelper(inc) {
 	id_dest->val = id_dest->width == 2 ? cpu.gpr[cc]._16 : cpu.gpr[cc]._32;
 	t0 = 1;
 	rtl_add(&id_dest->val, &id_dest->val, &t0);
-
+  rtl_update_ZFSF(&id_dest->val, id_dest->width);
 	rtl_sr(cc, &id_dest->val, id_dest->width);
 	char reg_name[10] = "%";
 	strcat(reg_name, id_dest->width == 2 ? regsw[cc] : regsl[cc]);
@@ -43,7 +46,7 @@ make_EHelper(dec) {
 	id_dest->val = id_dest->width == 2 ? cpu.gpr[cc]._16 : cpu.gpr[cc]._32;
 	t0 = 1;
 	rtl_sub(&id_dest->val, &id_dest->val, &t0);
-
+  rtl_update_ZFSF(&id_dest->val, id_dest->width);
 	rtl_sr(cc, &id_dest->val, id_dest->width);
 	char reg_name[10] = "%";
 	strcat(reg_name, id_dest->width == 2 ? regsw[cc] : regsl[cc]);
