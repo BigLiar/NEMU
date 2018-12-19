@@ -22,7 +22,7 @@ make_EHelper(cmp) {
 	rtl_sext(&t0, &id_src->val, id_src->width);
   rtl_sub(&id_dest->val, &id_dest->val, &t0);
 	rtl_update_ZFSF(&id_dest->val, id_dest->width);
-	printf("%d, 0x%x\n", id_dest->val, id_dest->val);
+	printf("%d, %d\n", cpu.eflags.ZF, cpu.eflags.SF);
 
   print_asm_template2(cmp);
 }
