@@ -21,7 +21,6 @@ make_EHelper(pop) {
 	char reg_name[10] = "%";
 	strcat(reg_name, id_dest->width == 2 ? regsw[cc] : regsl[cc]);
 	strcpy(id_dest->str, reg_name);
-	assert(0);
 
 	rtl_pop(&cpu.gpr[cc]._32);
 	printf("esp:%d, 0x%x\n", id_src->addr, id_src->addr);
