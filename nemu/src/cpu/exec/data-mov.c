@@ -18,11 +18,14 @@ make_EHelper(push) {
 make_EHelper(pop) {
 	uint32_t cc = decoding.opcode & 0xf;
 	rtl_pop(&id_dest->val);
+	printf("1");
 	char reg_name[10] = "%";
 	strcat(reg_name, id_dest->width == 2 ? regsw[cc] : regsl[cc]);
 	strcpy(id_dest->str, reg_name);
-	cpu.gpr[cc]._32 = id_dest->val;
+	printf("1");
+	rtl_sr(cc, &id_dest->val, id_dest->width);
 
+	printf("esp:%d, 0x%x\n", id_src->addr, id_src->addr);
   print_asm_template1(pop);
 }
 
@@ -87,6 +90,5 @@ make_EHelper(movzx) {
 
 make_EHelper(lea) {
   operand_write(id_dest, &id_src->addr);
-	printf("esp:%d, 0x%x\n", id_src->addr, id_src->addr);
   print_asm_template2(lea);
 }
