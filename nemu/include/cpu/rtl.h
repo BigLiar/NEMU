@@ -202,19 +202,18 @@ static inline void rtl_update_ZF(const rtlreg_t* result, int width) {
 	for(i = 0; i < width; ++i)
 		flags = (flags << 8) | 0xff;
 	cpu.eflags.ZF = !(*result & flags);
-	printf("ZF:%d  ",  cpu.eflags.ZF);
 }
 
 static inline void rtl_update_SF(const rtlreg_t* result, int width) {
   // eflags.SF <- is_sign(result[width * 8 - 1 .. 0])
+	printf("ZF:%d  ", cpu.eflags.ZF);
 	cpu.eflags.SF = *result >> (width * 8 - 1) & 1;
+	printf("ZF:%d  ", cpu.eflags.ZF);
 }
 
 static inline void rtl_update_ZFSF(const rtlreg_t* result, int width) {
   rtl_update_ZF(result, width);
-	printf("ZF:%d  ", cpu.eflags.ZF);
   rtl_update_SF(result, width);
-	printf("ZF:%d  ", cpu.eflags.ZF);
 }
 
 #endif
