@@ -52,10 +52,14 @@ make_EHelper(leave) {
 
 make_EHelper(cltd) {
   if (decoding.is_operand_size_16) {
-    TODO();
+    t0 = !!(cpu.gpr[0]._16 & 0x8000);
+		printf("cltd-AX:%d\n", t0);
+		cpu.gpr[2]._16 = 0xffff;
   }
   else {
-    TODO();
+    t0 = !!(cpu.gpr[0]._32 & 0x80000000);
+		printf("cltd-EAX:%d\n", t0);
+		cpu.gpr[2]._32 = 0xffffffff;
   }
 
   print_asm(decoding.is_operand_size_16 ? "cwtl" : "cltd");
