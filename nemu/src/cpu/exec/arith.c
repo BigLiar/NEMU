@@ -41,22 +41,24 @@ make_EHelper(inc) {
 	rtl_add(&id_dest->val, &id_dest->val, &t0);
   rtl_update_ZFSF(&id_dest->val, id_dest->width);
 	operand_write(id_dest, &id_dest->val);
-	  print_asm_template1(inc);
+	print_asm_template1(inc);
 }
 
 make_EHelper(dec) {
-	uint32_t cc = decoding.opcode & 0x7;
-	id_dest->val = id_dest->width == 2 ? cpu.gpr[cc]._16 : cpu.gpr[cc]._32;
+	if(decoding.opcode != 0xfe){
+		uint32_t cc = decoding.opcode & 0x7;
+  	id_dest->val = id_dest->width == 2 ? cpu.gpr[cc]._16 : cpu.gpr[cc]._32;
+		id_dest->reg = cc;
+		id_dest->type = OP_TYPE_REG;	char reg_name[10] = "%";
+		strcat(reg_name, id_dest->width == 2 ? regsw[cc] : regsl[cc]);
+		strcpy(id_dest->str, reg_name);
+
+	}
 	t0 = 1;
 	rtl_sub(&id_dest->val, &id_dest->val, &t0);
   rtl_update_ZFSF(&id_dest->val, id_dest->width);
-	rtl_sr(cc, &id_dest->val, id_dest->width);
-	char reg_name[10] = "%";
-	strcat(reg_name, id_dest->width == 2 ? regsw[cc] : regsl[cc]);
-	strcpy(id_dest->str, reg_name);
-  
-  print_asm_template1(inc);
-  print_asm_template1(dec);
+	operand_write(id_dest, &id_dest->val);
+	print_asm_template1(inc);
 }
 
 make_EHelper(neg) {
