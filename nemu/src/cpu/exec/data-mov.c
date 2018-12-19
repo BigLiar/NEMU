@@ -16,7 +16,6 @@ make_EHelper(push) {
 }
 
 make_EHelper(pop) {
-	assert(0);
 	uint32_t cc = decoding.opcode & 0xf;
 	rtl_pop(&id_dest->val);
 	char reg_name[10] = "%";
