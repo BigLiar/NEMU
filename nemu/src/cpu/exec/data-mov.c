@@ -7,6 +7,7 @@ make_EHelper(mov) {
 
 make_EHelper(push) {
 	uint32_t cc = decoding.opcode & 0xf;
+
 	id_dest->val = id_dest->width == 2 ? cpu.gpr[cc]._16 : cpu.gpr[cc]._32;
 	char reg_name[10] = "%";
 	strcat(reg_name, id_dest->width == 2 ? regsw[cc] : regsl[cc]);
@@ -17,13 +18,12 @@ make_EHelper(push) {
 
 make_EHelper(pop) {
 	uint32_t cc = decoding.opcode & 0xf;
-	rtl_pop(&id_dest->val);
 	char reg_name[10] = "%";
 	strcat(reg_name, id_dest->width == 2 ? regsw[cc] : regsl[cc]);
 	strcpy(id_dest->str, reg_name);
 	printf("1");
-	rtl_sr(cc, &id_dest->val, id_dest->width);
 
+	rtl_pop(&cpu.gpr[cc]._32);
 	printf("esp:%d, 0x%x\n", id_src->addr, id_src->addr);
   print_asm_template1(pop);
 }
