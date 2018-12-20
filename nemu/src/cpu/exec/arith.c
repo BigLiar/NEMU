@@ -59,7 +59,7 @@ make_EHelper(cmp) {
 }
 
 make_EHelper(inc) {
-	if(decoding.opcode != 0xfe){
+	if(decoding.opcode == 0xfe){
 		uint32_t cc = decoding.opcode & 0x7;
   	id_dest->val = id_dest->width == 2 ? cpu.gpr[cc]._16 : cpu.gpr[cc]._32;
 		id_dest->reg = cc;
