@@ -56,6 +56,7 @@ make_EHelper(cmp) {
   rtl_and(&t2, &t2, &t1);
   rtl_msb(&t2, &t2, id_dest->width);
   rtl_set_OF(&t2);
+	printf("CF:%d, SF:%d, ZF:%d", cpu.eflags.CF, cpu.eflags.SF, cpu.eflags.ZF);
 	print_asm_template2(cmp);
 }
 
