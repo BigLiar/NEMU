@@ -62,8 +62,11 @@ int strncmp(const char* s1, const char* s2, size_t n) {
 void* memset(void* v,int c,size_t n) {
   size_t i;
 	char* cv = (char*)v;
-	for(i = 0; i < n; ++i)
+	for(i = 0; i < n; ++i){
 		cv[i] = c && 0xff;
+		printf("%c", cv[i]);
+	}
+	printf("\n");
 	return v;
 }
 
