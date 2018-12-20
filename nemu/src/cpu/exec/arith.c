@@ -23,14 +23,15 @@ make_EHelper(add) {
 
 make_EHelper(sub) {
 	rtl_sext(&t0, &id_src->val, id_src->width);
+  rtl_setrelop(RELOP_LTU, &t1, &id_dest->val, &t0);
+  rtl_set_CF(&t1);
 	rtl_xor(&t2, &id_dest->val, &t0);
 	
   rtl_sub(&id_dest->val, &id_dest->val, &t0);
 	operand_write(id_dest, &id_dest->val);
   
 	rtl_update_ZFSF(&id_dest->val, id_dest->width);
-  rtl_setrelop(RELOP_GTU, &t0, &id_dest->val, &t0);
-  rtl_set_CF(&t0);
+
 
   rtl_xor(&t1, &id_dest->val, &t0);
 	rtl_not(&t1, &t1);
@@ -41,15 +42,14 @@ make_EHelper(sub) {
 }
 
 make_EHelper(cmp) {
-	printf("0x%x, 0x%x\n", id_dest->val, id_src->val);
 	rtl_sext(&t0, &id_src->val, id_src->width);
-	rtl_xor(&t2, &id_dest->val, &t0);
+	rtl_setrelop(RELOP_LTU, &t1, &id_dest->val, &t0);
+  rtl_set_CF(&t1);
 	
-  rtl_sub(&id_dest->val, &id_dest->val, &t0);
-  
-	rtl_update_ZFSF(&id_dest->val, id_dest->width);
-  rtl_setrelop(RELOP_GTU, &t0, &id_dest->val, &t0);
-  rtl_set_CF(&t0);
+	rtl_xor(&t2, &id_dest->val, &t0);
+	rtl_sub(&id_dest->val, &id_dest->val, &t0);
+  rtl_update_ZFSF(&id_dest->val, id_dest->width);
+
 
   rtl_xor(&t1, &id_dest->val, &t0);
 	rtl_not(&t1, &t1);
