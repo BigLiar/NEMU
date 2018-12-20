@@ -41,6 +41,7 @@ make_EHelper(sub) {
 }
 
 make_EHelper(cmp) {
+	printf("0x%x, 0x%x\n", id_src->val, id_dest->val);
 	rtl_sext(&t0, &id_src->val, id_src->width);
 	rtl_xor(&t2, &id_dest->val, &t0);
 	
@@ -55,7 +56,6 @@ make_EHelper(cmp) {
   rtl_and(&t2, &t2, &t1);
   rtl_msb(&t2, &t2, id_dest->width);
   rtl_set_OF(&t2);
-  printf("0x%x, 0x%x\n", id_src->val, id_dest->val);
 	print_asm_template2(cmp);
 }
 
@@ -70,7 +70,6 @@ make_EHelper(inc) {
 
 	}
 	t0 = 1;
-	printf("SI:0x%x\n", id_dest->val);
 	rtl_add(&id_dest->val, &id_dest->val, &t0);
   rtl_update_ZFSF(&id_dest->val, id_dest->width);
 	operand_write(id_dest, &id_dest->val);
