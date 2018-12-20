@@ -7,7 +7,7 @@ make_EHelper(test) {
 	rtl_set_CF(&t1);
 	rtl_set_OF(&t1);
 	rtl_update_ZFSF(&t0, id_dest->width);
-  printf("0x%x, 0x%x", id_src->val, id_dest->val);
+  printf("0x%x, 0x%x\n", id_src->val, id_dest->val);
 	print_asm_template2(test);
 }
 
