@@ -58,9 +58,6 @@ make_EHelper(cltd) {
     t0 = !!(cpu.gpr[0]._32 & 0x80000000);
 		cpu.gpr[2]._32 = t0 ? 0xffffffff : 0;
   }
-
-	printf("cltd-EAX:%d, ctld-EDX:0x%x\n", t0, cpu.edx);
-
   print_asm(decoding.is_operand_size_16 ? "cwtl" : "cltd");
 }
 
