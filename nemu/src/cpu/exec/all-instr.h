@@ -3,6 +3,7 @@
 make_EHelper(nop);
 make_EHelper(mov);
 make_EHelper(movzx);
+make_EHelper(movsx);
 make_EHelper(lea);
 make_EHelper(call);
 make_EHelper(cltd);
