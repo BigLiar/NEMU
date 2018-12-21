@@ -24,7 +24,7 @@ void paddr_write(paddr_t addr, uint32_t data, int len) {
 	if(no == -1)
   	memcpy(guest_to_host(addr), &data, len);
 	else{
-		printf("paddr_t:0x%8x\n", addr);
+		printf("paddr_t:0x%8x\n, data:0x%x, len:%d", addr, data, len);
 		mmio_write(addr, data, len, no);
 	}
 }
