@@ -39,7 +39,7 @@ make_EHelper(ret) {
 }
 
 make_EHelper(call_rm) {
-  rtl_jr(&id_dest->val);
-	Log("0x%x %s\n", id_dest->val, id_dest->str);
+  rtl_push(eip);
+	rtl_jr(&id_dest->val);
   print_asm("call *%s", id_dest->str);
 }
