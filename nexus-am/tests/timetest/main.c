@@ -9,7 +9,7 @@ int main(){
   while (1) {
     while(uptime() < 1000 * sec) ;
     get_timeofday(&rtc);
-		int a = 111;
+		int a = 120;
 		printf("%d\n", a);
     printf("%d-%d-%d %02d:%02d:%02d GMT (", rtc.year, rtc.month, rtc.day, rtc.hour, rtc.minute, rtc.second);
     if (sec == 1) {
