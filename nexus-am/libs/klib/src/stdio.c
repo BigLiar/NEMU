@@ -1,5 +1,6 @@
 #include "klib.h"
 #include <stdarg.h>
+#include <am.h>
 
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
@@ -16,7 +17,12 @@ void sprintf_str(char *out, int* pos, char* src){
 }
 
 int printf(const char *fmt, ...) {
-  return 0;
+	char buf[256] = {0};
+	int res = sprintf(buf, fmt);
+	int i = 0;
+	for(i = 0; buf[i] != '\0'; ++i)
+		_putc(buf[i]);
+	return res;
 }
 
 int vsprintf(char *out, const char *fmt, va_list ap) {
