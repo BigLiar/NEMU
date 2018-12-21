@@ -3,12 +3,12 @@
 #include <amdev.h>
 #include <stdio.h>
 #define TIME_PORT 0x48
+_UptimeReg boot_time;
 size_t timer_read(uintptr_t reg, void *buf, size_t size) {
   switch (reg) {
     case _DEVREG_TIMER_UPTIME: {
       _UptimeReg *uptime = (_UptimeReg *)buf;	
-			uptime->lo = inl(TIME_PORT);
-			printf("uptime->lo:%d\n", (int)uptime->lo & 0x0fffffff);
+			uptime->lo = inl(TIME_PORT) - boot_time.lo;
       uptime->hi = 0;
       return sizeof(_UptimeReg);
     }
@@ -27,4 +27,6 @@ size_t timer_read(uintptr_t reg, void *buf, size_t size) {
 }
 
 void timer_init() {
+	boot_time.lo = inl(TIME_PORT);
+	boot_time.hi = 0;
 }
