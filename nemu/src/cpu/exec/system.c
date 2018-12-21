@@ -42,6 +42,7 @@ make_EHelper(iret) {
 }
 
 make_EHelper(in) {
+	printf("0x%x", id_src->val);
   switch(id_src->width){
 		case 1: t0 = pio_read_b(id_src->val);
 						break;
@@ -50,6 +51,7 @@ make_EHelper(in) {
 		case 4: t0 = pio_read_l(id_src->val);
 					  break;
 	}
+	printf("0x%x", t0);
 	operand_write(id_dest, &id_src->val);
   print_asm_template2(in);
 
