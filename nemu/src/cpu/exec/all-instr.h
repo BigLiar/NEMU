@@ -18,6 +18,8 @@ make_EHelper(pop);
 make_EHelper(ret);
 make_EHelper(inv);
 make_EHelper(nemu_trap);
+make_EHelper(in);
+make_EHelper(out);
 
 make_EHelper(sub);
 make_EHelper(add);
