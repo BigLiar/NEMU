@@ -32,8 +32,7 @@ void get_value(const char* fmt, int* f_pos, char* out, int* pos, va_list* p_ap){
 	char* valstr;
 	if(fmt[*f_pos] == 'd'){	
 			valint = va_arg(*p_ap, int);
-			if(valint == 0) out[(*pos)++] = '0';
-			else print_int(out, pos, valint);
+			print_int(out, pos, valint);
 	}
 	if(fmt[*f_pos] == 's'){
 			valstr = va_arg(*p_ap, char*);
@@ -43,10 +42,9 @@ void get_value(const char* fmt, int* f_pos, char* out, int* pos, va_list* p_ap){
 }
 
 void get_width(const char* fmt, int* f_pos, char* out, int* pos, va_list* p_ap){
-	width = 0;
+	width = 1;
 	if(fmt[*f_pos] <= '9' && fmt[*f_pos] > '0'){
 			width = scan_int(fmt, f_pos);
-			assert(width == 0);
 	}
 	get_value(fmt, f_pos, out, pos, p_ap);
 }
