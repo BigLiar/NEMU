@@ -23,10 +23,8 @@ void paddr_write(paddr_t addr, uint32_t data, int len) {
 	int no = is_mmio(addr);
 	if(no == -1)
   	memcpy(guest_to_host(addr), &data, len);
-	else{
-		printf("paddr_t:0x%8x, data:0x%x, len:%d\n", addr, data, len);
-		mmio_write(addr, data, len, no);
-	}
+	else
+		mmio_write(addr, len, data, no);
 }
 
 uint32_t vaddr_read(vaddr_t addr, int len) {
