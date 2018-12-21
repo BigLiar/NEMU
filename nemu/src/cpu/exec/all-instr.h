@@ -8,6 +8,7 @@ make_EHelper(lea);
 make_EHelper(call);
 make_EHelper(call_rm);
 make_EHelper(cltd);
+make_EHelper(cwtl);
 make_EHelper(leave);
 make_EHelper(jcc);
 make_EHelper(jmp);
