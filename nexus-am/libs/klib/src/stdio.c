@@ -8,7 +8,7 @@ void sprintf_int(char *out, int* pos, int src){
 	if(src == 0)
 		return;
 	sprintf_int(out, pos, src / 10);
-	out[(*pos)++] = (char) src % 10 + '0';
+	out[(*pos)++] = (char)(src % 10 + '0');
 }
 
 void sprintf_str(char *out, int* pos, char* src){
