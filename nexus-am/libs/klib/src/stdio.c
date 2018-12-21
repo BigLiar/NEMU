@@ -42,7 +42,7 @@ void get_value(const char* fmt, int* f_pos, char* out, int* pos, va_list* p_ap){
 }
 
 void get_width(const char* fmt, int* f_pos, char* out, int* pos, va_list* p_ap){
-	width = 1;
+	width = 2;
 	if(fmt[*f_pos] <= '9' && fmt[*f_pos] > '0'){
 			width = scan_int(fmt, f_pos);
 	}
