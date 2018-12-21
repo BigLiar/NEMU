@@ -46,7 +46,7 @@ void get_width(const char* fmt, int* f_pos, char* out, int* pos, va_list* p_ap){
 	width = 0;
 	if(fmt[*f_pos] <= '9' && fmt[*f_pos] > '0'){
 			width = scan_int(fmt, f_pos);
-			assert(width == 2);
+			assert(width == 0);
 	}
 	get_value(fmt, f_pos, out, pos, p_ap);
 }
