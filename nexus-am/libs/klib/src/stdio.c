@@ -20,7 +20,7 @@ int printf(const char *fmt, ...) {
 	char buf[256] = {0};
 	va_list ap;
 	va_start(ap, fmt);
-	int res = sprintf(buf, fmt, ap);
+	int res = vsprintf(buf, fmt, ap);
 	int i = 0;
 	for(i = 0; buf[i] != '\0'; i++)
 		_putc(buf[i]);
@@ -29,15 +29,9 @@ int printf(const char *fmt, ...) {
 }
 
 int vsprintf(char *out, const char *fmt, va_list ap) {
-  return 0;
-}
-
-int sprintf(char *out, const char *fmt, ...) {
-  int i = 0;
+   int i = 0;
 	int valint;
 	char* valstr;
-	va_list ap;
-	va_start(ap, fmt);
 	while(*fmt){
 		if(*fmt != '%')
 			out[i++] = *(fmt++);
@@ -59,6 +53,13 @@ int sprintf(char *out, const char *fmt, ...) {
 	}
 	out[i] = '\0';
 	return i;
+}
+
+int sprintf(char *out, const char *fmt, ...) {
+	char buf[256] = {0};
+	va_list ap;
+	va_start(ap, fmt);
+	return vsprintf(buf, fmt, ap);
 }
 
 int snprintf(char *out, size_t n, const char *fmt, ...) {
