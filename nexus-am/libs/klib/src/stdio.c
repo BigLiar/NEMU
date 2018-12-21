@@ -4,19 +4,62 @@
 
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
-void sprintf_int(char *out, int* pos, int src, char fill, int width){
+static char fe;
+static int width;
+int scan_int(const char* fmt, int* f_pos){
+	int res = 0;
+	while(fmt[*f_pos] <= '9' && fmt[*f_pos] > '0'){
+			res = res * 10 + fmt[*f_pos] - '0';
+			(*f_pos)++;
+	}
+	return res;
+}
+
+void print_int(char *out, int* pos, int src){
 	if(src == 0 && width > 0)
-		out[*(pos)++] = '0';
+		out[(*pos)++] = fe;
 	if(src == 0)
 		return;
-	sprintf_int(out, pos, src / 10, fill, width-1);
+	print_int(out, pos, src / 10);
 	out[(*pos)++] = (char)(src % 10 + '0');
 }
 
-void sprintf_str(char *out, int* pos, char* src){
+void print_str(char *out, int* pos, char* src){
 	*pos += strlen(src);
 	strcat(out, src);
 }
+
+void get_value(const char* fmt, int* f_pos, char* out, int* pos, va_list ap){
+	int valint;
+	char* valstr;
+	if(fmt[*f_pos] == 'd'){	
+			valint = va_arg(ap, int);
+			if(valint == 0) out[(*pos)++] = '0';
+			else print_int(out, pos, valint);
+	}
+	if(fmt[*f_pos] == 's'){
+			valstr = va_arg(ap, char*);
+			print_str(out, pos, valstr);
+	}
+}
+
+void get_width(const char* fmt, int* f_pos, char* out, int* pos, va_list ap){
+	width = 0;
+	if(fmt[*f_pos] <= '9' && fmt[*f_pos] > '0')
+			width = scan_int(fmt, f_pos);
+	get_value(fmt, f_pos, out, pos, ap);
+}
+
+void get_fill_empty(const char* fmt, int* f_pos, char *out, int* pos, va_list ap){
+	fe = ' ';
+	if(fmt[*f_pos] == '0'){
+		fe = '0';
+		(*f_pos)++;
+	}
+	get_width(fmt, f_pos, out, pos, ap);
+}
+
+
 
 int printf(const char *fmt, ...) {
 	char buf[256] = {0};
@@ -31,50 +74,13 @@ int printf(const char *fmt, ...) {
 }
 
 int vsprintf(char *out, const char *fmt, va_list ap) {
-  int i = 0;
-	int valint;
-	char* valstr;
-	char fill_empty = ' ';
-	int width = 0;
-	while(*fmt){
-		if(*fmt != '%')
-			out[i++] = *(fmt++);
+  int i = 0, j = 0;
+	while(fmt[j]){
+		if(fmt[j] != '%')
+			out[i++] = fmt[j++];
 		else{
-			fmt++;
-			switch(*fmt){
-				case '0':
-					fill_empty = '0';
-					fmt++;
-				case '1':
-					width =  1;
-				case '2':
-					width =  2;
-				case '3':
-					width =  3;
-				case '4':
-					width =  4;
-				case '5':
-					width =  5;
-				case '6':
-					width =  6;
-				case '7':
-					width =  7;
-				case '8':
-					width =  8;
-				case '9':
-					width =  9;
-					fmt++;
-				case 'd':
-					valint = va_arg(ap, int);
-					if(valint == 0) out[i++] = '0';
-					else sprintf_int(out, &i, valint, fill_empty, width);
-					break;
-				case 's':
-					valstr = va_arg(ap, char*);
-					sprintf_str(out, &i, valstr);
-					break;
-			}
-			fmt++;
+			j++;
+			get_fill_empty(fmt, &j, out, &i, ap);
 		}
 	}
 	out[i] = '\0';
