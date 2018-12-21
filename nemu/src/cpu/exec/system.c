@@ -50,7 +50,7 @@ make_EHelper(in) {
 		case 4: t0 = pio_read_l(id_src->val);
 					  break;
 	}
-	operand_write(id_dest, &id_src->val);
+	operand_write(id_dest, &t0);
   print_asm_template2(in);
 
 #if defined(DIFF_TEST)
