@@ -1,6 +1,5 @@
 #include "klib.h"
 #include <stdarg.h>
-#include <stdio.h>
 #include <am.h>
 
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
@@ -45,9 +44,10 @@ void get_value(const char* fmt, int* f_pos, char* out, int* pos, va_list* p_ap){
 
 void get_width(const char* fmt, int* f_pos, char* out, int* pos, va_list* p_ap){
 	width = 0;
-	if(fmt[*f_pos] <= '9' && fmt[*f_pos] > '0')
+	if(fmt[*f_pos] <= '9' && fmt[*f_pos] > '0'){
 			width = scan_int(fmt, f_pos);
-	printf("width:%d\n", width);
+			assert(width == 2);
+	}
 	get_value(fmt, f_pos, out, pos, p_ap);
 }
 
