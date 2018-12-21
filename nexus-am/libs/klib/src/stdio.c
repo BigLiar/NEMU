@@ -18,7 +18,9 @@ void sprintf_str(char *out, int* pos, char* src){
 
 int printf(const char *fmt, ...) {
 	char buf[256] = {0};
-	int res = sprintf(buf, fmt);
+	va_list ap;
+	va_start(ap, fmt);
+	int res = sprintf(buf, fmt, ap);
 	int i = 0;
 	for(i = 0; buf[i] != '\0'; ++i)
 		_putc(buf[i]);
