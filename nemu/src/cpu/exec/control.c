@@ -41,6 +41,5 @@ make_EHelper(ret) {
 make_EHelper(call_rm) {
   rtl_jr(&id_dest->val);
 	Log("0x%x %s\n", id_dest->val, id_dest->str);
-	assert(id_dest->val == 0x1001e8);
   print_asm("call *%s", id_dest->str);
 }
