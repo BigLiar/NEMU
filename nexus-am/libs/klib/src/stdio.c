@@ -22,8 +22,9 @@ int printf(const char *fmt, ...) {
 	va_start(ap, fmt);
 	int res = sprintf(buf, fmt, ap);
 	int i = 0;
-	for(i = 0; buf[i] != '\0'; ++i)
+	for(i = 0; buf[i] != '\0'; i++)
 		_putc(buf[i]);
+	
 	return res;
 }
 
