@@ -55,7 +55,8 @@ uint32_t mmio_read(paddr_t addr, int len, int map_NO) {
 }
 
 void mmio_write(paddr_t addr, int len, uint32_t data, int map_NO) {
-  assert(len >= 1 && len <= 4);
+  printf("mmio-len:%d\n", len);
+	assert(len >= 1 && len <= 4);
   MMIO_t *map = &maps[map_NO];
 
   uint8_t *p = map->mmio_space + (addr - map->low);
