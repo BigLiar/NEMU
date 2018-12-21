@@ -189,7 +189,6 @@ make_EHelper(imul1) {
       break;
     default: assert(0);
   }
-  printf("EDX:0x%x, EAX:0x%x\n", t2, t1);
   print_asm_template1(imul);
 }
 
