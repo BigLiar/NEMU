@@ -56,10 +56,9 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 }
 
 int sprintf(char *out, const char *fmt, ...) {
-	char buf[256] = {0};
 	va_list ap;
 	va_start(ap, fmt);
-	return vsprintf(buf, fmt, ap);
+	return vsprintf(out, fmt, ap);
 }
 
 int snprintf(char *out, size_t n, const char *fmt, ...) {
