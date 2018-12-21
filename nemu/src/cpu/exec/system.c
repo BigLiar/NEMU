@@ -51,7 +51,7 @@ make_EHelper(in) {
 		case 4: t0 = pio_read_l(id_src->val);
 					  break;
 	}
-	printf("0x%x", t0);
+	printf("0x%x\n", t0);
 	operand_write(id_dest, &id_src->val);
   print_asm_template2(in);
 
