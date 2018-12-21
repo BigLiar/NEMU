@@ -16,7 +16,7 @@ int scan_int(const char* fmt, int* f_pos){
 }
 
 void print_int(char *out, int* pos, int src){
-	if(src == 0 && width-- <= 0)
+	if(width-- <= 0 && src == 0)
 		return;
 	print_int(out, pos, src / 10);
 	out[(*pos)++] = (char)(src % 10 + '0');
