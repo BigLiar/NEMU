@@ -16,9 +16,7 @@ int scan_int(const char* fmt, int* f_pos){
 }
 
 void print_int(char *out, int* pos, int src){
-	if(src == 0 && width > 0)
-		out[(*pos)++] = fe;
-	if(src == 0)
+	if(src == 0 && width-- <= 0)
 		return;
 	print_int(out, pos, src / 10);
 	out[(*pos)++] = (char)(src % 10 + '0');
@@ -29,34 +27,35 @@ void print_str(char *out, int* pos, char* src){
 	strcat(out, src);
 }
 
-void get_value(const char* fmt, int* f_pos, char* out, int* pos, va_list ap){
+void get_value(const char* fmt, int* f_pos, char* out, int* pos, va_list* p_ap){
 	int valint;
 	char* valstr;
 	if(fmt[*f_pos] == 'd'){	
-			valint = va_arg(ap, int);
+			valint = va_arg(*p_ap, int);
 			if(valint == 0) out[(*pos)++] = '0';
 			else print_int(out, pos, valint);
 	}
 	if(fmt[*f_pos] == 's'){
-			valstr = va_arg(ap, char*);
+			valstr = va_arg(*p_ap, char*);
 			print_str(out, pos, valstr);
 	}
+	(*f_pos)++;
 }
 
-void get_width(const char* fmt, int* f_pos, char* out, int* pos, va_list ap){
+void get_width(const char* fmt, int* f_pos, char* out, int* pos, va_list* p_ap){
 	width = 0;
 	if(fmt[*f_pos] <= '9' && fmt[*f_pos] > '0')
 			width = scan_int(fmt, f_pos);
-	get_value(fmt, f_pos, out, pos, ap);
+	get_value(fmt, f_pos, out, pos, p_ap);
 }
 
-void get_fill_empty(const char* fmt, int* f_pos, char *out, int* pos, va_list ap){
+void get_fill_empty(const char* fmt, int* f_pos, char *out, int* pos, va_list* p_ap){
 	fe = ' ';
 	if(fmt[*f_pos] == '0'){
 		fe = '0';
 		(*f_pos)++;
 	}
-	get_width(fmt, f_pos, out, pos, ap);
+	get_width(fmt, f_pos, out, pos, p_ap);
 }
 
 
@@ -80,7 +79,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 			out[i++] = fmt[j++];
 		else{
 			j++;
-			get_fill_empty(fmt, &j, out, &i, ap);
+			get_fill_empty(fmt, &j, out, &i, &ap);
 		}
 	}
 	out[i] = '\0';
