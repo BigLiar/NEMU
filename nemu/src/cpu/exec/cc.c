@@ -24,7 +24,7 @@ void rtl_setcc(rtlreg_t* dest, uint8_t subcode) {
 				*dest = cpu.eflags.ZF;
 				break;
     case CC_BE:
-				*dest = cpu.eflags.ZF |cpu.eflags.CF;
+				*dest = cpu.eflags.ZF | cpu.eflags.CF;
 				break;
     case CC_S:
 				*dest = cpu.eflags.SF;
