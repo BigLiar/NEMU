@@ -94,8 +94,10 @@ make_EHelper(dec) {
 }
 
 make_EHelper(neg) {
-  TODO();
-
+	t0 = -id_dest->val;
+	operand_write(id_dest, &t0);
+	t1 = id_dest->val && 0x1;
+	rtl_set_CF(&t1);
   print_asm_template1(neg);
 }
 

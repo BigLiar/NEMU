@@ -32,6 +32,7 @@ make_EHelper(imul2);
 make_EHelper(div);
 make_EHelper(idiv);
 make_EHelper(cmp);
+make_EHelper(neg);
 
 make_EHelper(test);
 make_EHelper(xor);
