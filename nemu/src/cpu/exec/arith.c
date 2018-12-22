@@ -72,6 +72,7 @@ make_EHelper(inc) {
 	t0 = 1;
 	rtl_add(&id_dest->val, &id_dest->val, &t0);
   rtl_update_ZFSF(&id_dest->val, id_dest->width);
+	
 	operand_write(id_dest, &id_dest->val);
 	print_asm_template1(inc);
 }
