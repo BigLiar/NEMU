@@ -236,10 +236,15 @@ MAIN_RETURN_TYPE main(int argc, char *argv[]) {
 	stop_time();
 	total_time=get_time();
 	/* get a function of the input to report */
+	printf("0x%x\n", seedcrc);
 	seedcrc=crc16(results[0].seed1,seedcrc);
+	printf("0x%x\n", seedcrc);
 	seedcrc=crc16(results[0].seed2,seedcrc);
+	printf("0x%x\n", seedcrc);
 	seedcrc=crc16(results[0].seed3,seedcrc);
+	printf("0x%x\n", seedcrc);
 	seedcrc=crc16(results[0].size,seedcrc);
+	printf("0x%x\n", seedcrc);
 	
 	switch (seedcrc) { /* test known output for common seeds */
 		case 0x8a02: /* seed1=0, seed2=0, seed3=0x66, size 2000 per algorithm */
