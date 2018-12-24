@@ -93,8 +93,6 @@ void difftest_init(void) {
   }
   else {
     // father
-		printf("?????");
-		assert(0);	
     gdb_connect_qemu();
     printf("Connect to QEMU successfully\n");
 
