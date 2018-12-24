@@ -3,9 +3,8 @@
 int main() {
 	int i = 1;
 	volatile int sum = 0;
-	while(i <= 100) {
+	for(i = 1; i <= 100; i++) {
 		sum += i;
-		i ++;
 	}
 
 	nemu_assert(sum == 5050);
