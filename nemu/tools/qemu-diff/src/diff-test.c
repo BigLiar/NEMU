@@ -88,13 +88,12 @@ void difftest_init(void) {
 
     close(STDIN_FILENO);
     execlp("qemu-system-i386", "qemu-system-i386", "-S", "-s", "-nographic", NULL);
-    perror("exec");
-    return;
-		//assert(0);
+    perror("12exec");
+		assert(0);
   }
   else {
     // father
-
+		
     gdb_connect_qemu();
     printf("Connect to QEMU successfully\n");
 
