@@ -113,9 +113,13 @@ MAIN_RETURN_TYPE main(int argc, char *argv[]) {
 		return MAIN_RETURN_VAL;
 	}
 	results[0].seed1=get_seed(1);
+	printf("0x%x\n", results[0].seed1);
 	results[0].seed2=get_seed(2);
+	printf("0x%x\n", results[0].seed2);
 	results[0].seed3=get_seed(3);
+	printf("0x%x\n", results[0].seed3);
 	results[0].iterations=get_seed_32(4);
+	printf("0x%x\n", results[0].iterations);
 #if CORE_DEBUG
 	results[0].iterations=1;
 #endif
