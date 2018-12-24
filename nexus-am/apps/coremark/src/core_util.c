@@ -37,7 +37,6 @@ El Dorado Hills, CA, 95762
 	extern volatile ee_s32 seed4_volatile;
 	extern volatile ee_s32 seed5_volatile;
 	ee_s32 get_seed_32(int i) {
-		printf("yes!0x%d", seed3_volatile);
 		ee_s32 retval;
 		switch (i) {
 			case 1:
