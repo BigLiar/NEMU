@@ -112,16 +112,10 @@ MAIN_RETURN_TYPE main(int argc, char *argv[]) {
 		ee_printf("list_head structure too big for comparable data!\n");
 		return MAIN_RETURN_VAL;
 	}
-	for(i = 0; i < argc; ++i)
-			printf("---arg::::%s\n", argv[i]);
 	results[0].seed1=get_seed(1);
-	printf("seed1:0x%x\n", results[0].seed1);
 	results[0].seed2=get_seed(2);
-	printf("seed2:0x%x\n", results[0].seed2);
 	results[0].seed3=get_seed(3);
-	printf("seed3:0x%x\n", results[0].seed3);
 	results[0].iterations=get_seed_32(4);
-	printf("0x%x\n", results[0].iterations);
 #if CORE_DEBUG
 	results[0].iterations=1;
 #endif
@@ -242,7 +236,6 @@ MAIN_RETURN_TYPE main(int argc, char *argv[]) {
 	stop_time();
 	total_time=get_time();
 	/* get a function of the input to report */
-	printf("0x%x\n", seedcrc);
 	seedcrc=crc16(results[0].seed1,seedcrc);
 	printf("0x%x, 0x%x\n", results[0].seed1, seedcrc);
 	seedcrc=crc16(results[0].seed2,seedcrc);
