@@ -43,6 +43,7 @@ make_EHelper(sub) {
 
 make_EHelper(cmp) {
 	rtl_sext(&t0, &id_src->val, id_src->width);
+	printf("0x%x, 0x%x\n", id_dest->val, id_src->val);
 	rtl_setrelop(RELOP_LTU, &t1, &id_dest->val, &t0);
   rtl_set_CF(&t1);
 	rtl_xor(&t2, &id_dest->val, &t0);
