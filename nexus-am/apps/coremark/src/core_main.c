@@ -197,8 +197,6 @@ MAIN_RETURN_TYPE main(int argc, char *argv[]) {
 		if (results[i].execs & ID_STATE) {
 			core_init_state(results[0].size,results[i].seed1,results[i].memblock[3]);
 		}
-
-	printf("no error");
 	}
 
 	/* automatically determine number of iterations if not set */
