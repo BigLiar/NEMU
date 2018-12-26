@@ -65,7 +65,6 @@ int main() {
     current = bench;
     setting = &bench->settings[SETTING];
     const char *msg = bench_check(bench);
-		printf("what happened?\n");
     printf("[%s] %s: ", bench->name, bench->desc);
     if (msg != NULL) {
       printf("Ignored %s\n", msg);
