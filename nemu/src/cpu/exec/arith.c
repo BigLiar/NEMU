@@ -43,7 +43,7 @@ make_EHelper(sub) {
 
 make_EHelper(cmp) {
 	
-  Log("0x%x, 0x%x\n", id_src->val, id_dest->val);
+  Log("0x%x, 0x%x, 0x%x\n", id_src->val, id_dest->val, cpu.eax);
 	rtl_sext(&t0, &id_src->val, id_src->width);
 	rtl_setrelop(RELOP_LTU, &t1, &id_dest->val, &t0);
 	rtl_set_CF(&t1);
