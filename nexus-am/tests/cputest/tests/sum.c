@@ -4,6 +4,6 @@ int main() {
 	int i = 0x182741;
 	if(i == 0x182741)
 		printf("no error!");
-	printf("ox%x", i);
+	printf("0x%x", i);
 	return 0;
 }
