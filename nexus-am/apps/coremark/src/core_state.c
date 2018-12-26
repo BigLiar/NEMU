@@ -117,7 +117,7 @@ void core_init_state(ee_u32 size, ee_s16 seed, ee_u8 *p) {
 	ee_u32 total=0,next=0,i;
 	ee_u8 *buf=0;
 #if CORE_DEBUG
-	ee_u8 *start=p;
+	// ee_u8 *start=p;
 	ee_printf("State: %d,%d\n",size,seed);
 #endif
 	size--;
@@ -161,7 +161,7 @@ void core_init_state(ee_u32 size, ee_s16 seed, ee_u8 *p) {
 		total++;
 	}
 #if CORE_DEBUG
-	ee_printf("State Input: %s\n",start);
+	//ee_printf("State Input: %s\n",start);
 
 	printf("no error");
 #endif
