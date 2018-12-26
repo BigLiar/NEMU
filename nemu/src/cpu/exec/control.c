@@ -34,8 +34,11 @@ make_EHelper(call) {
 make_EHelper(ret) {
 	rtl_pop(&t0);
 	rtl_jr(&t0);
-	if(decoding.opcode == 0xc2 || decoding.opcode == 0xca)
+	if(decoding.opcode == 0xc2 || decoding.opcode == 0xca){
+		printf("0x%x, 0x%x\n", cpu.esp, id_dest->val);
 		rtl_add(&cpu.esp, &cpu.esp, &id_dest->val);
+		printf("0x%x\n", cpu.esp);
+	}
   print_asm("ret");
 
 }
