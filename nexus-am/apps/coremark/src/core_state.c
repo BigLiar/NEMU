@@ -163,7 +163,6 @@ void core_init_state(ee_u32 size, ee_s16 seed, ee_u8 *p) {
 #if CORE_DEBUG
 	//ee_printf("State Input: %s\n",start);
 
-	printf("no error");
 #endif
 }
 

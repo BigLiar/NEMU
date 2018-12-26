@@ -86,7 +86,7 @@ ee_u16 core_bench_matrix(mat_params *p, ee_s16 seed, ee_u16 crc) {
 	MATDAT val=(MATDAT)seed;
 
 	crc=crc16(matrix_test(N,C,A,B,val),crc);
-
+	printf("core_bench_martix:0x%x", crc);
 	return crc;
 }
 
