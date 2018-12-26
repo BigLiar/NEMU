@@ -1,6 +1,7 @@
 #include "trap.h"
 int main() {
-	asm("movl $0x18273, %eax\n\t"	
-			"add %eax, 0x182741\n\t");
+	int i = 0;
+	i = i + 10;
+	nemu_assert(i == 10);
 	return 0;
 }
