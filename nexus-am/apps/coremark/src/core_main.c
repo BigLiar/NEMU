@@ -266,17 +266,6 @@ MAIN_RETURN_TYPE main(int argc, char *argv[]) {
 			total_errors=-1;
 			break;
 	}
-	if (results[0].execs & ID_LIST)
-		for (i=0 ; i<default_num_contexts; i++) 
-			ee_printf("[%d]crclist       : 0x%04x, 0x%04x\n",i,results[i].crclist, list_known_crc[known_id]);
-	if (results[0].execs & ID_MATRIX) 
-		for (i=0 ; i<default_num_contexts; i++) 
-			ee_printf("[%d]crcmatrix     : 0x%04x\n",i,results[i].crcmatrix);
-	if (results[0].execs & ID_STATE)
-		for (i=0 ; i<default_num_contexts; i++) 
-			ee_printf("[%d]crcstate      : 0x%04x\n",i,results[i].crcstate);
-	for (i=0 ; i<default_num_contexts; i++) 
-		ee_printf("[%d]crcfinal      : 0x%04x\n",i,results[i].crc);
 	if (known_id>=0) {
 		for (i=0 ; i<default_num_contexts; i++) {
 			results[i].err=0;
