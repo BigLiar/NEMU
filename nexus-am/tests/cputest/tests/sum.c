@@ -1,7 +1,7 @@
 #include "trap.h"
 int main() {
 	int i = 0;
-	i = i + 10;
-	nemu_assert(i == 10);
+	for(i = 0; i < 10; ++i);
+	nemu_assert(i == 9);
 	return 0;
 }
