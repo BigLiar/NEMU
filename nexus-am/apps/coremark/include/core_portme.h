@@ -99,7 +99,7 @@ typedef size_t ee_size_t;
 #ifndef SEED_METHOD
 #define SEED_METHOD SEED_VOLATILE
 #endif
-
+#define CORE_DEBUG 1
 /* Configuration : MEM_METHOD
 	Defines method to get a block of memry.
 	
