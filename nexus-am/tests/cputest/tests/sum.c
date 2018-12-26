@@ -1,5 +1,6 @@
 #include "trap.h"
 int main() {
-	asm("cmp %eax, 182741\n\t");
+	asm("movl 0x18274,%eax\n\t"	
+			"cmp %eax, 0x182741\n\t");
 	return 0;
 }
