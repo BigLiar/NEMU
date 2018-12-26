@@ -194,11 +194,13 @@ MAIN_RETURN_TYPE main(int argc, char *argv[]) {
 			core_init_matrix(results[0].size, results[i].memblock[2], (ee_s32)results[i].seed1 | (((ee_s32)results[i].seed2) << 16), &(results[i].mat) );
 		}
 
-	printf("no error");
 		if (results[i].execs & ID_STATE) {
 			core_init_state(results[0].size,results[i].seed1,results[i].memblock[3]);
 		}
+
+	printf("no error");
 	}
+
 	/* automatically determine number of iterations if not set */
 	if (results[0].iterations==0) { 
 		secs_ret secs_passed=0;
