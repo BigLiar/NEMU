@@ -1,5 +1,5 @@
 #include "trap.h"
-#include <stdio>
+#include <stdio.h>
 int main() {
 	int i = 1;
 	volatile int sum = 0;
