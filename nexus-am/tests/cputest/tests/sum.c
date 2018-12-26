@@ -1,5 +1,8 @@
 #include "trap.h"
 int main() {
-	asm("cmpl %eax, 0x123\n\t");
+	int i = 0, res = 0;
+	for(i = 0; i < 10; ++i);
+		res += i;
+	nemu_assert(res);
 	return 0;
 }
