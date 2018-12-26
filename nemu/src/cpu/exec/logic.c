@@ -74,3 +74,14 @@ make_EHelper(not) {
 	operand_write(id_dest, &t0);
   print_asm_template1(not);
 }
+
+make_EHelper(rol){
+	rtl_shl(&t0, &id_dest->val, &id_src->val);
+	rtl_sext(&t1, &id_src->val, id_src->width);
+	t1 = 32 - t1;
+	rtl_shr(&t2, &id_dest->val, &t1);
+	rtl_or(&t1, &t2, &t0);
+	rtl_update_ZFSF(&t1, id_dest->width);
+  operand_write(id_dest, &t1);
+  print_asm_template2(rol);
+}
