@@ -34,6 +34,7 @@ make_EHelper(call) {
 make_EHelper(ret) {
 	rtl_pop(&t0);
 	rtl_jr(&t0);
+	rtl_add(&cpu.esp, &cpu.esp, &id_dest->val);
   print_asm("ret");
 
 }
