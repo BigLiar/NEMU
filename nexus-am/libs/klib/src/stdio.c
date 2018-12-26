@@ -16,17 +16,11 @@ int scan_int(const char* fmt, int* f_pos){
 	return res;
 }
 
-void print_int(char *out, int* pos, int src, uint32_t base){
-	if(width-- <= 0 && src == 0)
-		return;
-	print_int(out, pos, src / base, base);
-	out[(*pos)++] = (char) cha_map[src % base];
-}
 
 void print_uint(char *out, int* pos, uint32_t src, uint32_t base){
 	if(width-- <= 0 && src == 0)
 		return;
-	print_int(out, pos, src / base, base);
+	print_uint(out, pos, src / base, base);
 	out[(*pos)++] = (char) cha_map[src % base];
 }
 void print_str(char *out, int* pos, char* src){
@@ -40,7 +34,11 @@ void get_value(const char* fmt, int* f_pos, char* out, int* pos, va_list* p_ap){
 	uint32_t valuint;
 	if(fmt[*f_pos] == 'd'){	
 			valint = va_arg(*p_ap, int);
-			print_int(out, pos, valint, 10);
+			if(valint < 0){
+				out[(*pos)++] = '-';
+				valint = - valint;
+			}
+			print_uint(out, pos, valint, 10);
 	}
 	if(fmt[*f_pos] == 's'){
 			valstr = va_arg(*p_ap, char*);
@@ -48,11 +46,15 @@ void get_value(const char* fmt, int* f_pos, char* out, int* pos, va_list* p_ap){
 	}
 	if(fmt[*f_pos] == 'x'){	
 			valint = va_arg(*p_ap, int);
-			print_int(out, pos, valint, 16);
+			if(valint < 0){
+			out[(*pos)++] = '-';
+			valint = - valint;
+			}		
+			print_uint(out, pos, valint, 16);
 	}
 	if(fmt[*f_pos] == 'u'){	
 			valuint = va_arg(*p_ap, int);
-			print_int(out, pos, valuint, 10);		
+			print_uint(out, pos, valuint, 10);		
 	}
 	(*f_pos)++;
 }
