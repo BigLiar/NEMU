@@ -50,7 +50,7 @@ make_EHelper(cmp) {
 	rtl_xor(&t2, &id_dest->val, &t0);
 	rtl_sub(&id_dest->val, &id_dest->val, &t0);
   rtl_update_ZFSF(&id_dest->val, id_dest->width);
-
+	Log("ZF:%d\n", cpu.eflags.ZF);
 
   rtl_xor(&t1, &id_dest->val, &t0);
 	rtl_not(&t1, &t1);
