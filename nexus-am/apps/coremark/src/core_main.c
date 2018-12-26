@@ -269,8 +269,6 @@ MAIN_RETURN_TYPE main(int argc, char *argv[]) {
 	if (known_id>=0) {
 		for (i=0 ; i<default_num_contexts; i++) {
 			results[i].err=0;
-
-			ee_printf("[%d]crclist       : 0x%04x, 0x%04x\n",i,results[i].crclist, list_known_crc[known_id]);
 			if ((results[i].execs & ID_LIST) && 
 				(results[i].crclist!=list_known_crc[known_id])) {
 				ee_printf("[%u]ERROR! list crc 0x%04x - should be 0x%04x\n",i,results[i].crclist,list_known_crc[known_id]);
