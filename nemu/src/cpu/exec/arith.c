@@ -2,7 +2,6 @@
 
 make_EHelper(add) {
   
-  printf("0x%x, 0x%x, 0x%x\n", id_src->val, id_dest->val, cpu.eax);
 	rtl_sext(&t0, &id_src->val, id_src->width);
 	rtl_xor(&t2, &id_dest->val, &t0);
 	rtl_not(&t2, &t2);
@@ -45,13 +44,11 @@ make_EHelper(sub) {
 make_EHelper(cmp) {
 	
 	rtl_sext(&t0, &id_src->val, id_src->width);
-  printf("0x%x, 0x%x, 0x%x\n", id_src->val, id_dest->val, cpu.eax);
 	rtl_setrelop(RELOP_LTU, &t1, &id_dest->val, &t0);
 	rtl_set_CF(&t1);
 	rtl_xor(&t2, &id_dest->val, &t0);
 	rtl_sub(&id_dest->val, &id_dest->val, &t0);
   rtl_update_ZFSF(&id_dest->val, id_dest->width);
-	printf("ZF:%d\n", cpu.eflags.ZF);
 
   rtl_xor(&t1, &id_dest->val, &t0);
 	rtl_not(&t1, &t1);
