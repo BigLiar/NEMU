@@ -15,3 +15,4 @@ make[1]: `/boot/dc_nemu/ics2018/nexus-am/libs/compiler-rt/build/compiler-rt-x86-
 make[1]: Leaving directory `/boot/dc_nemu/ics2018/nexus-am/libs/compiler-rt'
 make[1]: Entering directory `/boot/dc_nemu/ics2018/nemu'
 + CC src/cpu/exec/arith.c
++ LD build/nemu
