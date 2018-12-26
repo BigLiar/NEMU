@@ -3,7 +3,7 @@
 int main() {
 	int i = 1;
 //	volatile int sum = 0;
-	if(i && 320 == 320){
+	if(i && 320 != 320){
 		printf("hello!");
 		printf("hello!!!");
 	}
