@@ -6,12 +6,14 @@ make_EHelper(mov) {
 }
 
 make_EHelper(push) {
-	uint32_t cc = decoding.opcode & 0x7;
-
-	id_dest->val = id_dest->width == 2 ? cpu.gpr[cc]._16 : cpu.gpr[cc]._32;
-	char reg_name[10] = "%";
-	strcat(reg_name, id_dest->width == 2 ? regsw[cc] : regsl[cc]);
-	strcpy(id_dest->str, reg_name);
+	if(decoding.opcode >= 0x50 && decoding.opcode <= 0x57){
+		uint32_t cc = decoding.opcode & 0x7;
+		id_dest->val = id_dest->width == 2 ? cpu.gpr[cc]._16 : cpu.gpr[cc]._32;
+		char reg_name[10] = "%";
+		strcat(reg_name, id_dest->width == 2 ? regsw[cc] : regsl[cc]);
+		strcpy(id_dest->str, reg_name);
+	}
+	rtl_sext(&id_dest->val, &id_dest->val, id_dest->width);
 	rtl_push(&id_dest->val);
   print_asm_template1(push);
 }

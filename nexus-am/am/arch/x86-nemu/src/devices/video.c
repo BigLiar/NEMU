@@ -3,7 +3,7 @@
 #include <amdev.h>
 #include <klib.h>
 #define W 400
-#define H 300
+#define H 320
 static uint32_t* const fb __attribute__((used)) = (uint32_t *)0x40000;
 
 size_t video_read(uintptr_t reg, void *buf, size_t size) {
