@@ -281,8 +281,9 @@ make_DHelper(cl_G2E) {
 
 make_DHelper(Ms){
 	rtl_lm(&id_src->val, &id_dest->addr, 2);
-	id_dest->addr -= 2;
+	id_dest->addr += 2;
 	rtl_lm(&id_src2->val, &id_dest->addr, 4);
+	printf("0x%08x\n", id_src2->val);
 }
 
 make_DHelper(O2a) {
