@@ -24,9 +24,8 @@ make_EHelper(pop) {
 		char reg_name[10] = "%";
 		strcat(reg_name, id_dest->width == 2 ? regsw[cc] : regsl[cc]);
 		strcpy(id_dest->str, reg_name);
-		id_dest->val = cpu.gpr[cc]._32;
+	  rtl_pop(&cpu.gpr[cc]._32);
 	}
-	rtl_pop(&id_dest->val);
   print_asm_template1(pop);
 }
 
