@@ -281,7 +281,7 @@ make_DHelper(cl_G2E) {
 
 make_DHelper(Ms){
   decode_op_rm(eip, id_src, false, NULL, false);
-	printf("0x%8x\n, 0x%8x\n", id_dest->addr, id_src->addr);
+	printf("0x%8x\n", id_dest->addr);
 	rtl_lm(&id_src->val, &id_dest->addr, 2);
 	rtl_lr(&t0, 2, 4);
 	rtl_add(&t0, &id_dest->addr, &t0);
