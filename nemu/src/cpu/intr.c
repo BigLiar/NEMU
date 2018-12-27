@@ -7,11 +7,10 @@ void raise_intr(uint8_t NO, vaddr_t ret_addr) {
    */
   rtl_pop((uint32_t *)&cpu.eflags);
 	rtl_pop(&cpu.cs);
-	rtl_pop(&ret_addr);
-	
-	assert(0);
+	rtl_pop(&ret_addr);	
 	rtl_lr(&t0, cpu.IDTR.len, 2);
 	t1 = NO * 8;
+	assert(0);
 	assert(interpret_relop(RELOP_LT, t1, t0));	
 	rtl_lr(&t0, cpu.IDTR.base, 4);
 	rtl_add(&t0, &t1, &t0);
