@@ -280,13 +280,14 @@ make_DHelper(cl_G2E) {
 }
 
 make_DHelper(Ms){
-	decode_op_rm(eip, id_dest, false, id_src, false);
+	decode_op_rm(eip, id_src, false, id_dest, false);
 	printf("0x%8x\n, %s\n", id_dest->addr, id_dest->str);
 	rtl_lm(&id_src->val, &id_dest->addr, 2);
 	rtl_lr(&t0, 2, 4);
 	rtl_add(&t0, &id_dest->addr, &t0);
 	rtl_lm(&id_src2->val, &id_dest->addr, 4);
 }
+
 make_DHelper(O2a) {
   decode_op_O(eip, id_src, true);
   decode_op_a(eip, id_dest, false);
