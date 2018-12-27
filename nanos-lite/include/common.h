@@ -2,9 +2,10 @@
 #define __COMMON_H__
 
 /* Uncomment these macros to enable corresponding functionality. */
-//#define HAS_CTE
+#define HAS_CTE
 //#define HAS_VME
 
+#define printk printf
 #include <am.h>
 #include <klib.h>
 #include "debug.h"
