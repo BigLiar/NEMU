@@ -6,7 +6,6 @@ void difftest_skip_dut();
 make_EHelper(lidt) {
   cpu.IDTR.len = id_src->val & 0xffff;
 	cpu.IDTR.base = id_src2->val;
-	printf("0x%08x, 0x%04x", cpu.IDTR.base, cpu.IDTR.len);
   print_asm_template1(lidt);
 }
 
@@ -27,7 +26,8 @@ make_EHelper(mov_cr2r) {
 }
 
 make_EHelper(int) {
-  raise_intr(id_dest->val, *eip);
+  printf("0x%08x\n", id_dest->val);
+	raise_intr(id_dest->val, *eip);
   print_asm("int %s", id_dest->str);
 
 #if defined(DIFF_TEST) && defined(DIFF_TEST_QEMU)
