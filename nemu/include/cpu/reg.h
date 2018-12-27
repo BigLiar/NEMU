@@ -43,6 +43,7 @@ typedef struct {
 	 	uint32_t not_care_3 : 5;
 		uint32_t CF : 1;	
 	}eflags;
+  uint32_t cs, ss, ds, es, fs, gs;
 	struct{
 		uint32_t base;
 		uint32_t len: 16;
