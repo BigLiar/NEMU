@@ -12,6 +12,7 @@ void raise_intr(uint8_t NO, vaddr_t ret_addr) {
 	t1 = NO * 8;
 	assert(interpret_relop(RELOP_LT, t1, t0));	
 	t0 = cpu.IDTR.base;
+	printf("0x%08x\n", t0);
 	rtl_add(&t0, &t1, &t0);
 	printf("0x%08x\n", t0);
 	rtl_lm(&t1, &t0, 2);
@@ -23,7 +24,6 @@ void raise_intr(uint8_t NO, vaddr_t ret_addr) {
 	rtl_lm(&t2, &t0, 2);
 	t2 <<= 8;
 	rtl_and(&t1, &t1, &t2);
-	printf("0x%08x\n", t1);
 	rtl_jr(&t1);
 
 }
