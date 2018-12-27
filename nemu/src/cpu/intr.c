@@ -22,7 +22,7 @@ void raise_intr(uint8_t NO, vaddr_t ret_addr) {
 	assert(t2);
 	t0 += 4;
 	rtl_lm(&t2, &t0, 2);
-	t2 <<= 8;
+	t2 <<= 16;
 	printf("0x%08x\n", t2);
 	rtl_or(&t1, &t1, &t2);
 	rtl_jr(&t1);
