@@ -4,7 +4,8 @@ void difftest_skip_ref();
 void difftest_skip_dut();
 
 make_EHelper(lidt) {
-  TODO();
+  cpu.IDTR.len = id_src->val & 0xffff;
+	cpu.IDTR.base = id_src2->val;
 
   print_asm_template1(lidt);
 }

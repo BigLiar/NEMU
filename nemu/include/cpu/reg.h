@@ -43,6 +43,10 @@ typedef struct {
 	 	uint32_t not_care_3 : 5;
 		uint32_t CF : 1;	
 	}eflags;
+	struct{
+		uint32_t base;
+		uint32_t len: 16;
+	}IDTR;
 } CPU_state;
 
 extern CPU_state cpu;
