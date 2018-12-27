@@ -6,7 +6,7 @@ void difftest_skip_dut();
 make_EHelper(lidt) {
   cpu.IDTR.len = id_src->val & 0xffff;
 	cpu.IDTR.base = id_src2->val;
-
+	printf("0x%08x, 0x%04x", cpu.IDTR.base, cpu.IDTR.len);
   print_asm_template1(lidt);
 }
 
