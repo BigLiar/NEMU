@@ -8,7 +8,6 @@ void raise_intr(uint8_t NO, vaddr_t ret_addr) {
 	rtl_push((uint32_t *)&cpu.eflags);
 	rtl_push(&cpu.cs);
 	rtl_push(&ret_addr);	
-  printf("0x%08x, 0x%08x\n", cpu.esp, cpu.eip);
 	t0 = cpu.IDTR.len & 0xffff;
 	t1 = NO * 8;
 	assert(interpret_relop(RELOP_LT, t1, t0));	
