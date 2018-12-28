@@ -19,7 +19,7 @@ _Context* irq_handle(_Context *tf) {
       next = tf;
     }
   }
-
+	printf("%0x08x, %0x08x, %0x08x", (*tf).err, (*tf).esp, (*tf).eip);
   return next;
 }
 
