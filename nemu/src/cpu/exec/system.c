@@ -29,7 +29,6 @@ make_EHelper(int) {
 	
 	raise_intr(id_dest->val, *eip);
   
-	printf("irq-number:0x%x\n", id_dest->val);
 	print_asm("int %s", id_dest->str);
 
 #if defined(DIFF_TEST) && defined(DIFF_TEST_QEMU)

@@ -16,10 +16,10 @@ struct _Context {
   struct _Protect *prot;
 };
 
-#define GPR1 irq
-#define GPR2 edx
+#define GPR1 eax
+#define GPR2 ebx
 #define GPR3 ecx
-#define GPR4 ebx
+#define GPR4 edx
 #define GPRx 
 
 #ifdef __cplusplus
