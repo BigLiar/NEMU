@@ -21,6 +21,7 @@ make_EHelper(popa);
 make_EHelper(ret);
 make_EHelper(lidt);
 make_EHelper(int);
+make_EHelper(iret);
 
 make_EHelper(inv);
 make_EHelper(nemu_trap);
