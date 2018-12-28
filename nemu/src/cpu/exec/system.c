@@ -27,6 +27,7 @@ make_EHelper(mov_cr2r) {
 
 make_EHelper(int) {
 	raise_intr(id_dest->val, *eip);
+	printf("0x%08x, 0x%08x", cpu.eip, cpu.esp);
   print_asm("int %s", id_dest->str);
 
 #if defined(DIFF_TEST) && defined(DIFF_TEST_QEMU)
@@ -36,6 +37,7 @@ make_EHelper(int) {
 
 make_EHelper(iret) {
   rtl_pop(&cpu.eip);
+	printf("0x%08x, 0x%08x", cpu.eip, cpu.esp);
 	rtl_pop(&cpu.cs);
 	rtl_pop((uint32_t *)&cpu.eflags);
   print_asm("iret");
