@@ -28,7 +28,7 @@ make_EHelper(mov_cr2r) {
 make_EHelper(int) {
 	
 	raise_intr(id_dest->val, *eip);
-	printf("irq-val:%d\n", id_dest->val);
+	printf("irq-val:0x%x\n", id_dest->val);
   print_asm("int %s", id_dest->str);
 
 #if defined(DIFF_TEST) && defined(DIFF_TEST_QEMU)
