@@ -27,7 +27,6 @@ make_EHelper(mov_cr2r) {
 
 make_EHelper(int) {
 	
-	printf("0x%08x, 0x%08x\n", *eip, cpu.esp);
 	raise_intr(id_dest->val, *eip);
   print_asm("int %s", id_dest->str);
 
@@ -37,11 +36,11 @@ make_EHelper(int) {
 }
 
 make_EHelper(iret) {
-  rtl_pop(&cpu.eip);
-	printf("0x%08x, 0x%08x\n", cpu.eip, cpu.esp);
+  rtl_pop(&t0);
 	rtl_pop(&cpu.cs);
 	rtl_pop((uint32_t *)&cpu.eflags);
-  print_asm("iret");
+  rtl_jr(&t0);
+	print_asm("iret");
 }
 
 make_EHelper(in) {
