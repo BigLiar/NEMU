@@ -9,9 +9,9 @@
 typedef uint32_t size_t;
 
 struct _Context {
-  uintptr_t err;
- 	int irq;
-	uintptr_t	eax, ecx, edx, ebx, esp, ebp, esi, edi, eflags, cs, eip;
+ 	uintptr_t	edi, esi, ebp, esp, ebx, edx, ecx, eax;
+	int irq;
+	uintptr_t err, eip, cs, eflags;
   struct _Protect *prot;
 };
 
