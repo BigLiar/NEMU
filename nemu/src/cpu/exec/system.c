@@ -27,7 +27,7 @@ make_EHelper(mov_cr2r) {
 
 make_EHelper(int) {
 	
-	printf("0x%08x, 0x%08x\n", cpu.eip, cpu.esp);
+	printf("0x%08x, 0x%08x\n", *eip, cpu.esp);
 	raise_intr(id_dest->val, *eip);
   print_asm("int %s", id_dest->str);
 
