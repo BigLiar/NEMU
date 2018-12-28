@@ -9,7 +9,7 @@ int sys_write(int fd, void* buf, size_t count){
 		char *cbuf = (char *)buf;
 		for(i = 0; i < count && cbuf[i] != 0; i++)
 			_putc(cbuf[i]);
-		return 2;
+		return 1;
 	}
 	return -1;
 }
