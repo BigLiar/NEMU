@@ -2,8 +2,15 @@
 #include "syscall.h"
 
 
-int sys_write(){	
-	return 0;
+int sys_write(int fd, void* buf, size_t count){	
+	if(fd == 1 || fd == 2){
+		size_t i;
+		char *cbuf = (char *)buf;
+		for(i = 0; i < count; ++i)
+			_putc(cbuf[i]);
+		return count;
+	}
+	return -1;
 }
 
 _Context* do_syscall(_Context *c) {
@@ -19,7 +26,7 @@ _Context* do_syscall(_Context *c) {
 		case SYS_exit: _halt(0);
 							c->GPRx = 0;
 							break;
-		case SYS_write: sys_write();
+		case SYS_write: c->GPRx = sys_write((int) a[1], (void *) a[2], (size_t) a[3]);
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
 
