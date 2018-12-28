@@ -3,13 +3,12 @@
 
 
 int sys_write(int fd, void* buf, size_t count){
-	printf("fd:%d, write_count:%d\n", fd, count);
 	if(fd == 1 || fd == 2){	
 		size_t i;
 		char *cbuf = (char *)buf;
 		for(i = 0; i < count && cbuf[i] != 0; i++)
 			_putc(cbuf[i]);
-		return 44;
+		return i;
 	}
 	return -1;
 }
@@ -31,6 +30,7 @@ _Context* do_syscall(_Context *c) {
 			break;
 		case SYS_write: 
 			c->GPRx = sys_write((int) a[1], (void *) a[2], (size_t) a[3]);
+			printf("0x%d\n",c->GPRx);
 			break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
