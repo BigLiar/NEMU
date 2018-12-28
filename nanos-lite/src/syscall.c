@@ -3,7 +3,7 @@
 
 
 int sys_write(int fd, void* buf, size_t count){
-	printf("write_count:%d\n", count);
+	printf("fd:%d, write_count:%d\n", fd, count);
 	if(fd == 1 || fd == 2){	
 		size_t i;
 		char *cbuf = (char *)buf;
