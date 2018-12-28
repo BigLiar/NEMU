@@ -13,11 +13,11 @@
 typedef char bool;
 #define true 1
 #define false 0
-
-#endif
-
 size_t ramdisk_read(void *buf, size_t offset, size_t len);
 size_t ramdisk_write(const void *buf, size_t offset, size_t len);
 size_t get_ramdisk_size();
+_Context* do_syscall(_Context *c);
+
+#endif
 
 
