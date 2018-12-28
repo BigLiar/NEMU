@@ -9,7 +9,8 @@
 intptr_t _syscall_(int type, intptr_t a0, intptr_t a1, intptr_t a2){
   int ret = -1;
   asm volatile("int $0x80": "=a"(ret): "a"(type), "b"(a0), "c"(a1), "d"(a2));
-  if(ret == 0)
+  assert(0);
+	if(ret == 0)
 			assert(0);
 	else if(ret == 13)
 			assert(0);
