@@ -30,7 +30,6 @@ _Context* do_syscall(_Context *c) {
 			break;
 		case SYS_write: 
 			c->GPRx = sys_write((int) a[1], (void *) a[2], (size_t) a[3]);
-			printf("0x%d\n",c->GPRx);
 			break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
