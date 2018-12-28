@@ -8,8 +8,8 @@ void raise_intr(uint8_t NO, vaddr_t ret_addr) {
 	rtl_pop((uint32_t *)&cpu.eflags);
 	rtl_pop(&cpu.cs);
 	rtl_pop(&ret_addr);	
-  printf("0x%08x, 0x%08x\n", cpu.esp, cpu.eip);
 	t0 = cpu.IDTR.len & 0xffff;
+  printf("0x%08x, 0x%08x\n", cpu.esp, cpu.eip);
 	t1 = NO * 8;
 	assert(interpret_relop(RELOP_LT, t1, t0));	
 	t0 = cpu.IDTR.base;
