@@ -3,11 +3,12 @@
 
 
 int sys_write(int fd, void* buf, size_t count){
-	if(fd == 1 || fd == 2){
+	printf("write_count:%d\n", count);
+	if(fd == 1 || fd == 2){	
 		size_t i;
 		char *cbuf = (char *)buf;
 		for(i = 0; i < count && cbuf[i] != 0; ++i)
-			_putc(cbuf[i]);
+		//	_putc(cbuf[i]);
 		return count;
 	}
 	return -1;
