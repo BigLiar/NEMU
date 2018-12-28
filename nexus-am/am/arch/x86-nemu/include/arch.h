@@ -9,6 +9,7 @@
 typedef uint32_t size_t;
 
 struct _Context {
+	int not_care;
  	uintptr_t	edi, esi, ebp, esp, ebx, edx, ecx, eax;
 	int irq;
 	uintptr_t err, eip, cs, eflags;

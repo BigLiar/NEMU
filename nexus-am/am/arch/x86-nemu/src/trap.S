@@ -8,8 +8,8 @@ asm_trap:
   pushal
 
   pushl $0       # for prot
-	pushl $0
-  pushl %esp
+  
+	pushl %esp
   call irq_handle
 
   addl $4, %esp
