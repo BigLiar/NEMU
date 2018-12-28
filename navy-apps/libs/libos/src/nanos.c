@@ -5,18 +5,18 @@
 #include <assert.h>
 #include <time.h>
 #include "syscall.h"
-
+#include <stdio.h>
 #if defined(__ISA_X86__)
 intptr_t _syscall_(int type, intptr_t a0, intptr_t a1, intptr_t a2){
   int ret = -1;
   asm volatile("int $0x80": "=a"(ret): "a"(type), "b"(a0), "c"(a1), "d"(a2));
-  return ret;
+  printf("ret:%d\n", ret);
+	return ret;
 }
 #elif defined(__ISA_AM_NATIVE__)
 intptr_t _syscall_(int type, intptr_t a0, intptr_t a1, intptr_t a2){
   intptr_t ret = 0;
   asm volatile("call *0x100000": "=a"(ret): "a"(type), "S"(a0), "d"(a1), "c"(a2));
-	assert(0);
 	return ret;
 }
 #else
