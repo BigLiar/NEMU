@@ -3,7 +3,7 @@
 
 int main() {
   int res = write(1, "Hello World!\n", 13);
-  if(res == 13){
+  if(res == 0){
 		write(1, "Yes~~~\n", 7);
 	}
 	int i = 2;
