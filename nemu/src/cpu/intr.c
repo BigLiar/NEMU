@@ -8,6 +8,7 @@ void raise_intr(uint8_t NO, vaddr_t ret_addr) {
 	rtl_pop((uint32_t *)&cpu.eflags);
 	rtl_pop(&cpu.cs);
 	rtl_pop(&ret_addr);	
+  printf("0x%08x, 0x%08x\n", cpu.esp, cpu.eip);
 	t0 = cpu.IDTR.len & 0xffff;
 	t1 = NO * 8;
 	assert(interpret_relop(RELOP_LT, t1, t0));	
@@ -24,7 +25,6 @@ void raise_intr(uint8_t NO, vaddr_t ret_addr) {
 	rtl_or(&t1, &t1, &t2);
 	rtl_jr(&t1);
 
-  printf("0x%08x, 0x%08x\n", cpu.esp, cpu.eip);
 }
 
 void dev_raise_intr() {
