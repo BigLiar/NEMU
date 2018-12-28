@@ -1,6 +1,7 @@
 #include "common.h"
 #include "syscall.h"
-
+extern char end;
+int program_break = (int)&end;
 
 int sys_write(int fd, void* buf, size_t count){
 	if(fd == 1 || fd == 2){	
@@ -30,6 +31,11 @@ _Context* do_syscall(_Context *c) {
 			break;
 		case SYS_write: 
 			c->GPRx = sys_write((int) a[1], (void *) a[2], (size_t) a[3]);
+			break;
+		case SYS_brk:
+			*(int*)a[1] = program_break;
+			program_break += a[2];
+			c->GPRx = 0;
 			break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
