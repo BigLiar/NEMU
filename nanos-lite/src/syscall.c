@@ -8,8 +8,8 @@ int sys_write(int fd, void* buf, size_t count){
 		size_t i;
 		char *cbuf = (char *)buf;
 		for(i = 0; i < count && cbuf[i] != 0; i++)
-		_putc(cbuf[i]);
-		return i;
+			_putc(cbuf[i]);
+		return 2;
 	}
 	return -1;
 }
