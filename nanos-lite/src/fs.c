@@ -55,6 +55,7 @@ int sys_write(int fd, void* buf, size_t count){
 		assert(finfo_p->open_offset <= finfo_p->size);
 		if(finfo_p->open_offset + count <= finfo_p->size);
 			count = finfo_p->size - finfo_p->open_offset;
+		printf("%d, %d, %d\n", finfo_p->open_offset, count, finfo_p->size);
 		off_t offset= finfo_p->disk_offset + finfo_p->open_offset;
 		return ramdisk_write(buf, offset, count);	
 	}
