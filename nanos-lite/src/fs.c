@@ -45,7 +45,8 @@ void init_fs() {
 		}
 		if(strcmp(finfo_p->name, "/proc/dispinfo") == 0){
 			file_table[i].read = dispinfo_read;
-			file_table[i].write = invalid_write;	
+			file_table[i].write = invalid_write;
+			file_table[i].size = 128;	
 		}
 	}
 }
