@@ -39,6 +39,7 @@ int _write(int fd, void *buf, size_t count){
 
 void *_sbrk(intptr_t increment){
 	void* addr = 0;
+	assert(&addr != 0x00007a10);
 	_syscall_(SYS_brk, (intptr_t)&addr,  increment, 0);
 	assert(addr != 0x00373830);
 	return addr;
