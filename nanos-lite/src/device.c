@@ -8,7 +8,7 @@ size_t serial_write(const void *buf, size_t offset, size_t len) {
 	char *cbuf = (char *)buf;
 	for(i = 0; i < len && cbuf[i] != 0; i++)
 		_putc(cbuf[i]);
-	return i;
+	return 0;
 }
 
 static _Device *getdev(uint32_t id) {
