@@ -52,8 +52,8 @@ int sys_write(int fd, void* buf, size_t count){
 	else{
 		assert(NR_FILES > fd);
 		Finfo* finfo_p = file_table + fd; 
-		assert(finfo_p->open_offset < finfo_p->size);
-		assert(finfo_p->open_offset + count - 1 < finfo_p->size);
+		assert(finfo_p->open_offset <= finfo_p->size);
+		assert(finfo_p->open_offset + count <= finfo_p->size);
 		off_t offset= finfo_p->disk_offset + finfo_p->open_offset;
 		return ramdisk_write(buf, offset, count);	
 	}
@@ -63,8 +63,8 @@ int sys_write(int fd, void* buf, size_t count){
 int sys_read(int fd, void* buf, size_t count){
 		assert(NR_FILES > fd);
 		Finfo* finfo_p = file_table + fd; 
-		assert(finfo_p->open_offset < finfo_p->size);
-		assert(finfo_p->open_offset + count - 1 < finfo_p->size);
+		assert(finfo_p->open_offset <= finfo_p->size);
+		assert(finfo_p->open_offset + count <= finfo_p->size);
 		off_t offset= finfo_p->disk_offset + finfo_p->open_offset;
 		size_t ret = ramdisk_read(buf, offset, count);
 		finfo_p->open_offset += ret;
@@ -95,6 +95,6 @@ off_t sys_lseek(int fd, off_t offset, int whence) {
 			offset_T = file_table[fd].open_offset + offset; 
 		else if(whence == SEEK_END)
 			offset_T = file_table[fd].size + offset;
-		assert(offset_T < file_table[fd].size);
+		assert(offset_T <= file_table[fd].size);
 		return file_table[fd].open_offset = offset_T;
 }
