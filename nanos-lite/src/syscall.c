@@ -1,7 +1,7 @@
 #include "common.h"
 #include "syscall.h"
 extern char _end;
-int program_break = (int)&_end;
+void* program_break = (void *)&_end;
 
 _Context* do_syscall(_Context *c) {
   uintptr_t a[4];
@@ -35,9 +35,9 @@ _Context* do_syscall(_Context *c) {
 			break;
 
 		case SYS_brk:
-			*(int*)a[1] = program_break;
+			*(void **)a[1] = program_break;
 			program_break += a[2];
-			Log("brk:old:0x%08x, add:%x,  new:0x%08x\n", *(int*)a[1], a[2], program_break);
+			Log("brk:old:0x%08x, add:%x,  new:0x%08x\n", *(void **)a[1], a[2], program_break);
 			c->GPRx = 0;
 			break;
     default: panic("Unhandled syscall ID = %d", a[0]);
