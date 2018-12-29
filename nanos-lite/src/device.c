@@ -37,4 +37,8 @@ void init_device() {
 
   // TODO: print the string to array `dispinfo` with the format
   // described in the Navy-apps convention
+  _Device * vga_dev = _device(_DEV_VIDEO);
+	_VideoInfoReg info;
+  vga_dev->read(_DEVREG_VIDEO_INFO, &info, sizeof(info));
+	sprintf(dispinfo, "WIDTH:%d\nHEIGHT:%d\n", info.width, info.height); 
 }

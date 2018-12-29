@@ -36,6 +36,11 @@ static Finfo file_table[] __attribute__((used)) = {
 
 void init_fs() {
   // TODO: initialize the size of /dev/fb
+	/*int i;
+	for(i = 0; i < NR_FILES; ++i){
+		Finfo* finfo_p = file_table + i;
+		if(strcmp(finfo_p->name, "/dev/fb") == 0)
+	*/
 }
 size_t fs_filesz(int fd){
 	return file_table[fd].size;
@@ -95,7 +100,6 @@ off_t sys_lseek(int fd, off_t offset, int whence) {
 
 size_t fs_write(int fd, void* buf, size_t count){
 	assert(NR_FILES > fd);
-	Log("write_addr:0x%08x\n", file_table[fd].write);
 	if(file_table[fd].write == NULL)
 		return sys_write(fd, buf, count);
 	else
@@ -104,7 +108,6 @@ size_t fs_write(int fd, void* buf, size_t count){
 
 size_t fs_read(int fd, void* buf, size_t count){
 	assert(NR_FILES > fd);
-	Log("fd:%d, read_addr:0x%08x\n", fd, file_table[fd].write);
 	if(file_table[fd].read == NULL)
 		return sys_read(fd, buf, count);
 	else
