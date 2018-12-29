@@ -124,6 +124,6 @@ size_t fs_read(int fd, void* buf, size_t count){
 	else
 	  ret = (*file_table[fd].read)(buf, file_table[fd].open_offset, count);
 	file_table[fd].open_offset += ret;
-	Log("fs_read:open_offset %d, size %d\n", file_table[fd].open_offset, file_table[fd].size);
+	//Log("fs_read:open_offset %d, size %d\n", file_table[fd].open_offset, file_table[fd].size);
 	return ret;
 }
