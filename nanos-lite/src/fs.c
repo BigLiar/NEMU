@@ -42,7 +42,6 @@ size_t fs_filesz(int fd){
 }
 
 int sys_write(int fd, void* buf, size_t count){
-	Log("write-count:%d\n", count);
 	if(fd == FD_STDOUT || fd == FD_STDERR){	
 		size_t i;
 		char *cbuf = (char *)buf;
@@ -51,6 +50,7 @@ int sys_write(int fd, void* buf, size_t count){
 		return i;
 	}
 	else{
+		Log("write-count:%d\n", count);
 		assert(NR_FILES > fd);
 		Finfo* finfo_p = file_table + fd; 
 		assert(finfo_p->open_offset <= finfo_p->size);
