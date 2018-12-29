@@ -42,6 +42,7 @@ size_t fs_filesz(int fd){
 }
 
 int sys_write(int fd, void* buf, size_t count){
+	Log("write-count:%d\n", count);
 	if(fd == FD_STDOUT || fd == FD_STDERR){	
 		size_t i;
 		char *cbuf = (char *)buf;
@@ -53,7 +54,6 @@ int sys_write(int fd, void* buf, size_t count){
 		assert(NR_FILES > fd);
 		Finfo* finfo_p = file_table + fd; 
 		assert(finfo_p->open_offset <= finfo_p->size);
-		printf("write:%d, %d, %d\n", finfo_p->open_offset, count, finfo_p->size);
 		if(finfo_p->open_offset + count <= finfo_p->size);
 			count = finfo_p->size - finfo_p->open_offset;
 		off_t offset= finfo_p->disk_offset + finfo_p->open_offset;
@@ -65,11 +65,10 @@ int sys_write(int fd, void* buf, size_t count){
 
 
 int sys_read(int fd, void* buf, size_t count){
-		
+		Log("read-count:%d\n", count);
 		assert(NR_FILES > fd);
 		Finfo* finfo_p = file_table + fd; 
 		assert(finfo_p->open_offset <= finfo_p->size);
-		printf("read:%d, %d, %d\n", finfo_p->open_offset, count, finfo_p->size);
 		if(finfo_p->open_offset + count <= finfo_p->size);
 			count = finfo_p->size - finfo_p->open_offset;
 		off_t offset= finfo_p->disk_offset + finfo_p->open_offset;
@@ -103,5 +102,6 @@ off_t sys_lseek(int fd, off_t offset, int whence) {
 		else if(whence == SEEK_END)
 			offset_T = file_table[fd].size + offset;
 		assert(offset_T <= file_table[fd].size);
+		Log("open_offset:%d\n", offset_T);
 		return file_table[fd].open_offset = offset_T;
 }
