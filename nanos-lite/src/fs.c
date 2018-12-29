@@ -55,7 +55,6 @@ int sys_write(int fd, void* buf, size_t count){
 		assert(finfo_p->open_offset <= finfo_p->size);
 		if(finfo_p->open_offset + count > finfo_p->size)
 			count = finfo_p->size - finfo_p->open_offset;
-		Log("write-count:%d, %d, %d\n", count, finfo_p->open_offset, finfo_p->size);
 		off_t offset= finfo_p->disk_offset + finfo_p->open_offset;
 		off_t ret = ramdisk_write(buf, offset, count);	
 		finfo_p->open_offset += ret;
@@ -70,7 +69,6 @@ int sys_read(int fd, void* buf, size_t count){
 		assert(finfo_p->open_offset <= finfo_p->size);
 		if(finfo_p->open_offset + count > finfo_p->size)
 			count = finfo_p->size - finfo_p->open_offset;
-		Log("write-count:%d, %d, %d\n", count, finfo_p->open_offset, finfo_p->size);
 		off_t offset= finfo_p->disk_offset + finfo_p->open_offset;
 		size_t ret = ramdisk_read(buf, offset, count);
 		finfo_p->open_offset += ret;
