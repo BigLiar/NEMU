@@ -3,7 +3,7 @@
 #include <ndl.h>
 
 int main() {
-  assert(malloc(0x1000) != 0);
+  assert(malloc(0x100) != 0);
 	NDL_Bitmap *bmp = (NDL_Bitmap*)malloc(sizeof(NDL_Bitmap));
   int i = NDL_LoadBitmap(bmp, "/share/pictures/projectn.bmp");
   assert(i != -1);
