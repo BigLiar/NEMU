@@ -6,6 +6,8 @@
 //#define HAS_VME
 
 #define printk printf
+#define off_t int
+#define mode_t int
 #include <am.h>
 #include <klib.h>
 #include "debug.h"
@@ -17,6 +19,13 @@ size_t ramdisk_read(void *buf, size_t offset, size_t len);
 size_t ramdisk_write(const void *buf, size_t offset, size_t len);
 size_t get_ramdisk_size();
 _Context* do_syscall(_Context *c);
+
+int sys_write(int fd, void* buf, size_t count);
+int sys_read(int fd, void* buf, size_t count);
+int sys_open(const char *path, int flags, mode_t mode);
+int sys_close(int fd);
+off_t sys_lseek(int fd, off_t offset, int whence);
+size_t fs_filesz(int fd);
 
 #endif
 

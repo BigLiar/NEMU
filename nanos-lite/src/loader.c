@@ -3,8 +3,10 @@
 #define DEFAULT_ENTRY 0x4000000
 
 static uintptr_t loader(PCB *pcb, const char *filename) {
-	ramdisk_read((void *)DEFAULT_ENTRY, 0, get_ramdisk_size());
-  return DEFAULT_ENTRY;
+	int fd = sys_open(filename, 0, 0);
+	int count = sys_read(fd, (void *)DEFAULT_ENTRY, fs_filesz(fd));
+  Log("load file size:%d\n", count);
+	return DEFAULT_ENTRY;
 }
 
 void naive_uload(PCB *pcb, const char *filename) {

@@ -3,17 +3,6 @@
 extern char end;
 int program_break = (int)&end;
 
-int sys_write(int fd, void* buf, size_t count){
-	if(fd == 1 || fd == 2){	
-		size_t i;
-		char *cbuf = (char *)buf;
-		for(i = 0; i < count && cbuf[i] != 0; i++)
-			_putc(cbuf[i]);
-		return i;
-	}
-	return -1;
-}
-
 _Context* do_syscall(_Context *c) {
   uintptr_t a[4];
   a[0] = c->GPR1;
@@ -26,12 +15,25 @@ _Context* do_syscall(_Context *c) {
 			c->GPRx = 0;
 			break;
 		case SYS_exit: 
-			_halt(0);
+			_halt(a[1]);
 			c->GPRx = 0;
 			break;
 		case SYS_write: 
 			c->GPRx = sys_write((int) a[1], (void *) a[2], (size_t) a[3]);
 			break;
+		case SYS_open:
+			c->GPRx = sys_open((const char *) a[1], (int) a[2], (mode_t) a[3]);
+			break;
+		case SYS_read:
+			c->GPRx = sys_read((int) a[1], (void *) a[2], (size_t) a[3]);
+			break;
+		case SYS_close:
+			c->GPRx = sys_close((int) a[1]);
+			break;
+		case SYS_lseek:
+			c->GPRx = sys_lseek((int) a[1], (off_t) a[2], (int) a[3]);
+			break;
+
 		case SYS_brk:
 			*(int*)a[1] = program_break;
 			program_break += a[2];
