@@ -27,8 +27,8 @@ size_t invalid_write(const void *buf, size_t offset, size_t len) {
 /* This is the information about all files in disk. */
 static Finfo file_table[] __attribute__((used)) = {
   {"stdin", 0, 0, 0, invalid_read, invalid_write},
-  {"stdout", 0, 0, 0, invalid_read, invalid_write},
-  {"stderr", 0, 0, 0, invalid_read, invalid_write},
+  {"stdout", 0, 0, 0, invalid_read, serial_write},
+  {"stderr", 0, 0, 0, invalid_read, serial_write},
 #include "files.h"
 };
 
@@ -42,14 +42,6 @@ size_t fs_filesz(int fd){
 }
 
 size_t sys_write(int fd, void* buf, size_t count){
-	if(fd == FD_STDOUT || fd == FD_STDERR){	
-		size_t i;
-		char *cbuf = (char *)buf;
-		for(i = 0; i < count && cbuf[i] != 0; i++)
-			_putc(cbuf[i]);
-		return i;
-	}
-	else{
 		assert(NR_FILES > fd);
 		Finfo* finfo_p = file_table + fd; 
 		assert(finfo_p->open_offset <= finfo_p->size);
@@ -59,7 +51,6 @@ size_t sys_write(int fd, void* buf, size_t count){
 		off_t ret = ramdisk_write(buf, offset, count);	
 		finfo_p->open_offset += ret;
 		return ret;
-	}
 }
 
 size_t sys_read(int fd, void* buf, size_t count){
