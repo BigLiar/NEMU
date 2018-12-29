@@ -87,7 +87,6 @@ int sys_close(int fd) {
 
 
 off_t sys_lseek(int fd, off_t offset, int whence) {
-		Log("fs_lseek!!!\n");
 		assert(NR_FILES > fd);
 		off_t offset_T = 0;
 		if(whence == SEEK_SET)
@@ -97,5 +96,6 @@ off_t sys_lseek(int fd, off_t offset, int whence) {
 		else if(whence == SEEK_END)
 			offset_T = file_table[fd].size - 1 + offset;
 		assert(offset_T < file_table[fd].size);
+		Log("offset:%d\n", offset);
 		return file_table[fd].open_offset = offset_T;
 }
