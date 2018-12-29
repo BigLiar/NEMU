@@ -38,8 +38,15 @@ void init_fs() {
 	int i;
 	for(i = 0; i < NR_FILES; ++i){
 		Finfo* finfo_p = file_table + i;
-		if(strcmp(finfo_p->name, "/dev/fb") == 0)
+		if(strcmp(finfo_p->name, "/dev/fb") == 0){
+			file_table[i].read = invalid_read;
+			file_table[i].write = fb_write;	
 			file_table[i].size = get_screen_area();
+		}
+		if(strcmp(finfo_p->name, "/proc/dispinfo") == 0){
+			file_table[i].read = dispinfo_read;
+			file_table[i].write = invalid_write;	
+		}
 	}
 }
 size_t fs_filesz(int fd){
