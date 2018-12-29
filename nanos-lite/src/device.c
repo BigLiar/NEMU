@@ -40,14 +40,14 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   int ret = key.keycode;
   if (key.keydown) ret |= 0x8000;
 
-	if(ret != _KEY_NONE)
+	//if(ret != _KEY_NONE)
 		sprintf(events, "%s %s\n", key.keydown ? "kd" : "ku", keyname[ret]);
-	else{
+	/*else{
 		_UptimeReg uptime;
   	_Device *dev = getdev(_DEV_TIMER);
   	dev->read(_DEVREG_TIMER_UPTIME, &uptime, sizeof(uptime));
   	sprintf(events, "t %d\n", uptime.lo);
-	}
+	}*/
 	int i;
 	char* cbuf = (char *)buf;
 	for(i = 0; i < len && events[i] != 0; ++i)
