@@ -104,7 +104,7 @@ size_t fs_write(int fd, void* buf, size_t count){
 
 size_t fs_read(int fd, void* buf, size_t count){
 	assert(NR_FILES > fd);
-	Log("read_addr:0x%08x\n", file_table[fd].write);
+	Log("fd:%d, read_addr:0x%08x\n", fd, file_table[fd].write);
 	if(file_table[fd].read == NULL)
 		return sys_read(fd, buf, count);
 	else
