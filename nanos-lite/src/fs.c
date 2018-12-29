@@ -43,6 +43,11 @@ void init_fs() {
 			file_table[i].write = fb_write;	
 			file_table[i].size = get_screen_area();
 		}
+		if(strcmp(finfo_p->name, "/dev/events") == 0){
+			file_table[i].read = events_read;
+			file_table[i].write = invalid_write;
+			file_table[i].size = 256;	
+		}
 		if(strcmp(finfo_p->name, "/proc/dispinfo") == 0){
 			file_table[i].read = dispinfo_read;
 			file_table[i].write = invalid_write;
@@ -56,6 +61,7 @@ size_t fs_filesz(int fd){
 
 size_t sys_write(int fd, void* buf, size_t count){
 		Finfo* finfo_p = file_table + fd; 
+		assert(finfo_p->open_offset <= finfo_p->size);
 		if(finfo_p->open_offset + count > finfo_p->size)
 			count = finfo_p->size - finfo_p->open_offset;
 		off_t offset= finfo_p->disk_offset + finfo_p->open_offset;
@@ -63,7 +69,6 @@ size_t sys_write(int fd, void* buf, size_t count){
 }
 
 size_t sys_read(int fd, void* buf, size_t count){
-		assert(NR_FILES > fd);
 		Finfo* finfo_p = file_table + fd; 
 		assert(finfo_p->open_offset <= finfo_p->size);
 		if(finfo_p->open_offset + count > finfo_p->size)
@@ -74,7 +79,6 @@ size_t sys_read(int fd, void* buf, size_t count){
 
 int sys_open(const char *path, int flags, mode_t mode){
 	int i = 0;
-	Log("open:fd:%d, path:%s\n", i, path);
 	for(i = 0; i < NR_FILES; ++ i){
 		if(strcmp(file_table[i].name, path) == 0){
 			return i;
@@ -106,7 +110,6 @@ size_t fs_write(int fd, void* buf, size_t count){
 //	Log("fs_write:fd:%d\n", fd);
 	size_t ret = 0;
 	assert(NR_FILES > fd);
-	assert(file_table[fd].open_offset <= file_table[fd].size);
 	if(file_table[fd].write == NULL)
 		ret = sys_write(fd, buf, count);
 	else
@@ -118,7 +121,6 @@ size_t fs_write(int fd, void* buf, size_t count){
 size_t fs_read(int fd, void* buf, size_t count){
 	assert(NR_FILES > fd);
 	size_t ret = 0;
-	assert(file_table[fd].open_offset <= file_table[fd].size);
 	if(file_table[fd].read == NULL)
 		ret = sys_read(fd, buf, count);
 	else
