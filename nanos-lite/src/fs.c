@@ -73,8 +73,10 @@ size_t sys_read(int fd, void* buf, size_t count){
 int sys_open(const char *path, int flags, mode_t mode){
 	int i = 0;
 	for(i = 0; i < NR_FILES; ++ i){
-		if(strcmp(file_table[i].name, path) == 0)
+		if(strcmp(file_table[i].name, path) == 0){
+			Log("open:fd:%d, path:%s\n", i, path);
 			return i;
+		}	
 	}
 	assert(0);
 }
@@ -99,7 +101,7 @@ off_t sys_lseek(int fd, off_t offset, int whence) {
 }
 
 size_t fs_write(int fd, void* buf, size_t count){
-	//Log("fs_write:fd:%d\n", fd);
+	Log("fs_write:fd:%d\n", fd);
 	assert(NR_FILES > fd);
 	if(file_table[fd].write == NULL)
 		return sys_write(fd, buf, count);
