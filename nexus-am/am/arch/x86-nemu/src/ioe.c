@@ -37,6 +37,5 @@ static _Device n86_dev[] = {
 
 _Device *_device(int n) {
   n --;
-	printf("n:%d\n, add:0x%8x\n", n, n86_dev[n]);
   return (n >= 0 && (unsigned int)n < NR_DEV) ? &n86_dev[n] : NULL;
 }
