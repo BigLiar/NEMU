@@ -96,6 +96,6 @@ off_t sys_lseek(int fd, off_t offset, int whence) {
 		else if(whence == SEEK_END)
 			offset_T = file_table[fd].size - 1 + offset;
 		assert(offset_T < file_table[fd].size);
-		Log("offset:%d\n", offset);
+		Log("offset:%d\n", offset_T);
 		return file_table[fd].open_offset = offset_T;
 }
