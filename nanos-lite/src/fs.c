@@ -99,7 +99,7 @@ size_t fs_write(int fd, void* buf, size_t count){
 	if(file_table[fd].write == NULL)
 		return sys_write(fd, buf, count);
 	else
-	  return (*file_table[fd].read)(buf, file_table[fd].open_offset, count);
+	  return (*file_table[fd].write)(buf, file_table[fd].open_offset, count);
 }
 
 size_t fs_read(int fd, void* buf, size_t count){
