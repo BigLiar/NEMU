@@ -52,4 +52,5 @@ void init_device() {
 	_VideoInfoReg info;
   vga_dev->read(_DEVREG_VIDEO_INFO, &info, sizeof(info));
 	sprintf(dispinfo, "WIDTH:%d\nHEIGHT:%d\n", info.width, info.height);
+	printf("%s", dispinfo);
 }
