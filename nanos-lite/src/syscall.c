@@ -37,7 +37,7 @@ _Context* do_syscall(_Context *c) {
 		case SYS_brk:
 			*(int*)a[1] = program_break;
 			program_break += a[2];
-			Log("brk:old:0x%08x, new:0x%08x\n", *(int*)a[1], program_break);
+			Log("brk:old:0x%08x, add:%x,  new:0x%08x\n", *(int*)a[1], a[2], program_break);
 			c->GPRx = 0;
 			break;
     default: panic("Unhandled syscall ID = %d", a[0]);
