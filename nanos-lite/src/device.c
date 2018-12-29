@@ -38,6 +38,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
 static char dispinfo[128] __attribute__((used));
 
 size_t dispinfo_read(void *buf, size_t offset, size_t len) {
+	Log("dispinfo_read:offset:%d, len%d, size:%d", offset, len, sizeof(dispinfo));
   assert(offset + len <= sizeof(dispinfo));
   memcpy(buf, dispinfo + offset, len);
   return len;
