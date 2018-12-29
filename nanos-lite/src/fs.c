@@ -55,9 +55,7 @@ size_t fs_filesz(int fd){
 }
 
 size_t sys_write(int fd, void* buf, size_t count){
-		assert(NR_FILES > fd);
 		Finfo* finfo_p = file_table + fd; 
-		assert(finfo_p->open_offset <= finfo_p->size);
 		if(finfo_p->open_offset + count > finfo_p->size)
 			count = finfo_p->size - finfo_p->open_offset;
 		off_t offset= finfo_p->disk_offset + finfo_p->open_offset;
@@ -108,6 +106,7 @@ size_t fs_write(int fd, void* buf, size_t count){
 	//Log("fs_write:fd:%d\n", fd);
 	size_t ret = 0;
 	assert(NR_FILES > fd);
+	assert(file_table[fd].open_offset <= file_table[fd].size);
 	if(file_table[fd].write == NULL)
 		ret = sys_write(fd, buf, count);
 	else
@@ -119,6 +118,7 @@ size_t fs_write(int fd, void* buf, size_t count){
 size_t fs_read(int fd, void* buf, size_t count){
 	assert(NR_FILES > fd);
 	size_t ret = 0;
+	assert(file_table[fd].open_offset <= file_table[fd].size);
 	if(file_table[fd].read == NULL)
 		ret = sys_read(fd, buf, count);
 	else
