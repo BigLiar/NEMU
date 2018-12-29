@@ -19,13 +19,13 @@ _Context* do_syscall(_Context *c) {
 			c->GPRx = 0;
 			break;
 		case SYS_write: 
-			c->GPRx = sys_write((int) a[1], (void *) a[2], (size_t) a[3]);
+			c->GPRx = fs_write((int) a[1], (void *) a[2], (size_t) a[3]);
 			break;
 		case SYS_open:
 			c->GPRx = sys_open((const char *) a[1], (int) a[2], (mode_t) a[3]);
 			break;
 		case SYS_read:
-			c->GPRx = sys_read((int) a[1], (void *) a[2], (size_t) a[3]);
+			c->GPRx = fs_read((int) a[1], (void *) a[2], (size_t) a[3]);
 			break;
 		case SYS_close:
 			c->GPRx = sys_close((int) a[1]);
