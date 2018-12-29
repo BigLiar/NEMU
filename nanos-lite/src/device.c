@@ -51,6 +51,7 @@ size_t fb_write(const void *buf, size_t offset, size_t len) {
 	_Device *dev = getdev(_DEV_VIDEO);
 	_FBCtlReg ctl;
   ctl.pixels = (uint32_t *)buf;
+	offset /= 4;
  	ctl.x = offset % W;
  	ctl.y	= offset / W;
 	ctl.w = 1;
