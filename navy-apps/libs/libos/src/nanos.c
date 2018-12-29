@@ -37,12 +37,14 @@ int _write(int fd, void *buf, size_t count){
   return ret;
 }
 
-void *_sbrk(intptr_t increment){
-	void* addr = 0;
-	_syscall_(SYS_brk, (intptr_t)&addr,  increment, 0);
-	assert(addr != 0x0036e830);
+extern char _end;
+void* program_break = (void *)&_end;
 
-	assert(addr != 0x0);
+
+void *_sbrk(intptr_t increment){
+	_syscall_(SYS_brk, 0,  0, 0);
+	void* addr = program_break;
+	program_break += increment;
 	return addr;
 }
 
