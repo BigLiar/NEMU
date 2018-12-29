@@ -39,6 +39,7 @@ void init_device() {
   // described in the Navy-apps convention
 	_Device * vga_dev = _device(_DEV_VIDEO);
 	_VideoInfoReg info;
-  vga_dev->read(_DEVREG_VIDEO_INFO, &info, sizeof(info));
+	printf("0x%x, 0x%x\n", info, vga_dev);
+  //vga_dev->read(_DEVREG_VIDEO_INFO, &info, sizeof(info));
 	//sprintf(dispinfo, "WIDTH:%d\nHEIGHT:%d\n", info.width, info.height);
 }
