@@ -35,7 +35,6 @@ _Context* do_syscall(_Context *c) {
 			break;
 
 		case SYS_brk:
-			printf("0x%08x\n", a[1]);
 			*(void **)a[1] = program_break;
 			program_break += a[2];
 			Log("brk:old:0x%08x, add:%x,  new:0x%08x\n", *(void **)a[1], a[2], program_break);
