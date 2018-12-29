@@ -72,9 +72,9 @@ size_t sys_read(int fd, void* buf, size_t count){
 
 int sys_open(const char *path, int flags, mode_t mode){
 	int i = 0;
+	Log("open:fd:%d, path:%s\n", i, path);
 	for(i = 0; i < NR_FILES; ++ i){
 		if(strcmp(file_table[i].name, path) == 0){
-			//Log("open:fd:%d, path:%s\n", i, path);
 			return i;
 		}	
 	}
