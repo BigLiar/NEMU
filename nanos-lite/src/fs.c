@@ -1,5 +1,4 @@
 #include "fs.h"
-
 typedef size_t (*ReadFn) (void *buf, size_t offset, size_t len);
 typedef size_t (*WriteFn) (const void *buf, size_t offset, size_t len);
 
@@ -36,11 +35,13 @@ static Finfo file_table[] __attribute__((used)) = {
 
 void init_fs() {
   // TODO: initialize the size of /dev/fb
-	/*int i;
+	int i;
 	for(i = 0; i < NR_FILES; ++i){
 		Finfo* finfo_p = file_table + i;
-		if(strcmp(finfo_p->name, "/dev/fb") == 0)
-	*/
+		if(strcmp(finfo_p->name, "/dev/fb") == 0){
+			file_table[i].size = get_screen_area();
+			printf("screen size:%d\n", file_table[i].size);}
+	}
 }
 size_t fs_filesz(int fd){
 	return file_table[fd].size;

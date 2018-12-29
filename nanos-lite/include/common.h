@@ -28,6 +28,10 @@ off_t sys_lseek(int fd, off_t offset, int whence);
 size_t fs_filesz(int fd);
 size_t serial_write(const void *buf, size_t offset, size_t len);
 size_t fb_write(const void *buf, size_t offset, size_t len);
+size_t dispinfo_read(void *buf, size_t offset, size_t len);
+
+
+int get_screen_area();
 #endif
 
 

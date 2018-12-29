@@ -24,7 +24,9 @@ size_t events_read(void *buf, size_t offset, size_t len) {
 static char dispinfo[128] __attribute__((used));
 
 size_t dispinfo_read(void *buf, size_t offset, size_t len) {
-  return 0;
+  assert(offset + len <= sizeof(dispinfo));
+  memcpy(buf, dispinfo + offset, len);
+  return len;
 }
 
 size_t fb_write(const void *buf, size_t offset, size_t len) {
@@ -41,7 +43,7 @@ static _Device *getdev(uint32_t id) {
   assert(0);
   return NULL;
 }
-
+int W, H;
 void init_device() {
   Log("Initializing devices...");
   _ioe_init();
@@ -51,6 +53,11 @@ void init_device() {
 	_Device *vga_dev = getdev(_DEV_VIDEO);
 	_VideoInfoReg info;
   vga_dev->read(_DEVREG_VIDEO_INFO, &info, sizeof(info));
+	W = info.width;
+	H = info.height;
 	sprintf(dispinfo, "WIDTH:%d\nHEIGHT:%d\n", info.width, info.height);
-	printf("%s", dispinfo);
+}
+
+int get_screen_area(){
+	return W * H * 4;
 }
