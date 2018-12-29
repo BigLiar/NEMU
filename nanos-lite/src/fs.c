@@ -63,6 +63,7 @@ int sys_write(int fd, void* buf, size_t count){
 int sys_read(int fd, void* buf, size_t count){
 		assert(NR_FILES > fd);
 		Finfo* finfo_p = file_table + fd; 
+		Log("%d\n", finfo_p->open_offset);
 		assert(finfo_p->open_offset < finfo_p->size);
 		assert(finfo_p->open_offset + count < finfo_p->size);
 		off_t offset= finfo_p->disk_offset + finfo_p->open_offset;
