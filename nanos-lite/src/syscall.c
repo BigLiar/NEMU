@@ -1,7 +1,7 @@
 #include "common.h"
 #include "syscall.h"
-extern char end;
-int program_break = (int)&end;
+extern char _end;
+int program_break = (int)&_end;
 
 _Context* do_syscall(_Context *c) {
   uintptr_t a[4];
