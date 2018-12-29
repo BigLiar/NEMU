@@ -65,12 +65,13 @@ int sys_write(int fd, void* buf, size_t count){
 
 
 int sys_read(int fd, void* buf, size_t count){
+		
 		assert(NR_FILES > fd);
 		Finfo* finfo_p = file_table + fd; 
 		assert(finfo_p->open_offset <= finfo_p->size);
+		printf("read:%d, %d, %d\n", finfo_p->open_offset, count, finfo_p->size);
 		if(finfo_p->open_offset + count <= finfo_p->size);
 			count = finfo_p->size - finfo_p->open_offset;
-		printf("read:%d, %d, %d\n", finfo_p->open_offset, count, finfo_p->size);
 		off_t offset= finfo_p->disk_offset + finfo_p->open_offset;
 		size_t ret = ramdisk_read(buf, offset, count);
 		finfo_p->open_offset += ret;
