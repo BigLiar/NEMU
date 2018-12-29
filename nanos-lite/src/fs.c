@@ -87,6 +87,7 @@ int sys_close(int fd) {
 
 
 off_t sys_lseek(int fd, off_t offset, int whence) {
+		Log("fs_lseek!!!\n");
 		assert(NR_FILES > fd);
 		off_t offset_T = 0;
 		if(whence == SEEK_SET)

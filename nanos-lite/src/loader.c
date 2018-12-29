@@ -4,8 +4,7 @@
 
 static uintptr_t loader(PCB *pcb, const char *filename) {
 	int fd = sys_open(filename, 0, 0);
-	int count = sys_read(fd, (void *)DEFAULT_ENTRY, fs_filesz(fd));
-  Log("load file size:%d\n", count);
+	sys_read(fd, (void *)DEFAULT_ENTRY, fs_filesz(fd));
 	return DEFAULT_ENTRY;
 }
 
