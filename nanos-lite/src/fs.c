@@ -95,7 +95,8 @@ off_t sys_lseek(int fd, off_t offset, int whence) {
 
 size_t fs_write(int fd, void* buf, size_t count){
 	assert(NR_FILES > fd);
-	if(file_table[fd].write == 0)
+	Log("write_addr:0x%08x\n", file_table[fd].write);
+	if(file_table[fd].write == NULL)
 		return sys_write(fd, buf, count);
 	else
 	  return (*file_table[fd].read)(buf, file_table[fd].open_offset, count);
@@ -103,7 +104,8 @@ size_t fs_write(int fd, void* buf, size_t count){
 
 size_t fs_read(int fd, void* buf, size_t count){
 	assert(NR_FILES > fd);
-	if(file_table[fd].read == 0)
+	Log("read_addr:0x%08x\n", file_table[fd].write);
+	if(file_table[fd].read == NULL)
 		return sys_read(fd, buf, count);
 	else
 	  return (*file_table[fd].read)(buf, file_table[fd].open_offset, count);
