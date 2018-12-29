@@ -61,9 +61,7 @@ size_t sys_write(int fd, void* buf, size_t count){
 		if(finfo_p->open_offset + count > finfo_p->size)
 			count = finfo_p->size - finfo_p->open_offset;
 		off_t offset= finfo_p->disk_offset + finfo_p->open_offset;
-		off_t ret = ramdisk_write(buf, offset, count);	
-		finfo_p->open_offset += ret;
-		return ret;
+		return ramdisk_write(buf, offset, count);	
 }
 
 size_t sys_read(int fd, void* buf, size_t count){
@@ -73,9 +71,7 @@ size_t sys_read(int fd, void* buf, size_t count){
 		if(finfo_p->open_offset + count > finfo_p->size)
 			count = finfo_p->size - finfo_p->open_offset;
 		off_t offset= finfo_p->disk_offset + finfo_p->open_offset;
-		size_t ret = ramdisk_read(buf, offset, count);
-		finfo_p->open_offset += ret;
-		return ret;
+		return ramdisk_read(buf, offset, count);
 }
 
 int sys_open(const char *path, int flags, mode_t mode){
@@ -110,17 +106,23 @@ off_t sys_lseek(int fd, off_t offset, int whence) {
 
 size_t fs_write(int fd, void* buf, size_t count){
 	//Log("fs_write:fd:%d\n", fd);
+	size_t ret = 0;
 	assert(NR_FILES > fd);
 	if(file_table[fd].write == NULL)
-		return sys_write(fd, buf, count);
+		ret = sys_write(fd, buf, count);
 	else
-	  return (*file_table[fd].write)(buf, file_table[fd].open_offset, count);
+	  ret = (*file_table[fd].write)(buf, file_table[fd].open_offset, count);
+	file_table[fd].open_offset += ret;
+	return ret;
 }
 
 size_t fs_read(int fd, void* buf, size_t count){
 	assert(NR_FILES > fd);
+	size_t ret = 0;
 	if(file_table[fd].read == NULL)
-		return sys_read(fd, buf, count);
+		ret = sys_read(fd, buf, count);
 	else
-	  return (*file_table[fd].read)(buf, file_table[fd].open_offset, count);
+	  ret = (*file_table[fd].read)(buf, file_table[fd].open_offset, count);
+	file_table[fd].open_offset += ret;
+	return ret;
 }
