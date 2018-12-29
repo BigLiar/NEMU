@@ -103,7 +103,7 @@ off_t sys_lseek(int fd, off_t offset, int whence) {
 }
 
 size_t fs_write(int fd, void* buf, size_t count){
-	Log("fs_write:fd:%d\n", fd);
+//	Log("fs_write:fd:%d\n", fd);
 	size_t ret = 0;
 	assert(NR_FILES > fd);
 	assert(file_table[fd].open_offset <= file_table[fd].size);
