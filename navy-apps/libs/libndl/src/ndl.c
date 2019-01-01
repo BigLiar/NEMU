@@ -32,7 +32,7 @@ int NDL_OpenDisplay(int w, int h) {
     evtdev = stdin;
   } else {
     get_display_info();
-    printf("w:%d, h:%d\n", screen_w, screen_h);
+//    printf("w:%d, h:%d\n", screen_w, screen_h);
 		assert(screen_w >= canvas_w);
     assert(screen_h >= canvas_h);
     pad_x = (screen_w - canvas_w) / 2;
