@@ -31,29 +31,30 @@ static const char *keyname[256] __attribute__((used)) = {
   _KEYS(NAME)
 };
 
-int cur_time = 0;
-char events[256];
 size_t events_read(void *buf, size_t offset, size_t len) {
-  _Device *dev = getdev(_DEV_INPUT);
+  char events[256];
+	_Device *dev = getdev(_DEV_INPUT);
   _KbdReg key;
   dev->read(_DEVREG_INPUT_KBD, &key, sizeof(_KbdReg));
   int ret = key.keycode;
-  if (key.keydown) ret |= 0x8000;
-
-	//if(ret != _KEY_NONE)
-		sprintf(events, "%s %s\n", key.keydown ? "kd" : "ku", keyname[ret]);
-	/*else{
+	if(ret != _KEY_NONE){
+		strcpy(events, key.keydown ? "kd " : "ku ");
+		strcat(events, keyname[ret]);
+		strcat(events, "\n");
+	}
+	else{
 		_UptimeReg uptime;
   	_Device *dev = getdev(_DEV_TIMER);
   	dev->read(_DEVREG_TIMER_UPTIME, &uptime, sizeof(uptime));
   	sprintf(events, "t %d\n", uptime.lo);
-	}*/
+	}
 	int i;
 	char* cbuf = (char *)buf;
 	for(i = 0; i < len && events[i] != 0; ++i)
 		*cbuf++ = events[i];
 	*cbuf = '\0';
 	return i;
+
 }
 
 static char dispinfo[128] __attribute__((used));
