@@ -109,6 +109,19 @@ static inline make_DopHelper(O) {
 #endif
 }
 
+/* Yb, Yv */
+static inline make_DopHelper(Y) {
+  op->type = OP_TYPE_MEM;
+  op->addr = decoding.is_operand_size_16 ? cpu.di : cpu.edi;
+  if (load_val) {
+    rtl_lm(&op->val, &op->addr, op->width);
+  }
+
+#ifdef DEBUG
+  snprintf(op->str, OP_STR_SIZE, "0x%x", op->addr);
+#endif
+}
+
 /* Eb <- Gb
  * Ev <- Gv
  */
@@ -303,6 +316,12 @@ make_DHelper(J) {
 
 make_DHelper(push_SI) {
   decode_op_SI(eip, id_dest, true);
+}
+//AL/Ax/EAX -> (EDI/DI)
+//use for stos
+make_DHelper(a2Y){
+	decode_op_a(eip, id_src, true);
+  decode_op_Y(eip, id_dest, false);
 }
 
 make_DHelper(in_I2a) {

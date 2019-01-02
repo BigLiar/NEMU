@@ -109,3 +109,12 @@ make_EHelper(lea) {
   operand_write(id_dest, &id_src->addr);
   print_asm_template2(lea);
 }
+
+make_EHelper(stos){
+	operand_write(id_dest, &id_src->val);
+	if(decoding.is_operand_size_16)
+		cpu.di += id_src->width;
+	else
+		cpu.edi += id_src->width;
+	print_asm("stos%c", suffix_char(id_src->width));
+}
