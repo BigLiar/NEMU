@@ -102,7 +102,7 @@ void init_device() {
   vga_dev->read(_DEVREG_VIDEO_INFO, &info, sizeof(info));
 	W = info.width;
 	H = info.height;
-	sprintf(dispinfo, "WIDTH:%d\nHEIGHT:%d", info.width, info.height);
+	sprintf(dispinfo, "WIDTH:%d\nHEIGHT:%d\n", info.width, info.height);
 }
 
 int get_screen_area(){
