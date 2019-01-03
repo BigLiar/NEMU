@@ -95,6 +95,7 @@ int sys_open(const char *path, int flags, mode_t mode){
 
 
 int sys_close(int fd) {
+	file_table[fd].open_offset = 0;
 	return 0;
 }
 
