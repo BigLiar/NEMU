@@ -90,7 +90,7 @@ int sys_open(const char *path, int flags, mode_t mode){
 			return i;
 		}	
 	}
-	assert(0);
+	panic("Unknown file name %s\n", path);
 }
 
 
