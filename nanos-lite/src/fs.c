@@ -53,6 +53,11 @@ void init_fs() {
 			file_table[i].write = invalid_write;
 			file_table[i].size = 128;	
 		}
+		if(strcmp(finfo_p->name, "/dev/tty") == 0){
+			file_table[i].read = invalid_read;
+			file_table[i].write = serial_write;
+			file_table[i].size = 0;	
+		}
 	}
 }
 size_t fs_filesz(int fd){
