@@ -107,8 +107,10 @@ PAL_OpeningMenu(
       // Activate the menu
       //
       wItemSelected = PAL_ReadMenu(NULL, rgMainMenuItem, 2, wDefaultItem, MENUITEM_COLOR);
-
-      if (wItemSelected == 0 || wItemSelected == MENUITEM_VALUE_CANCELLED)
+			int selected = wItemSelected == 0 || wItemSelected == MENUITEM_VALUE_CANCELLED;
+			assert(wItemSelected == 0);
+			assert(wItemSelected == 0 || wItemSelected == MENUITEM_VALUE_CANCELLED);	
+      if (selected)
       {
          //
          // Start a new game

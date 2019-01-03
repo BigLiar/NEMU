@@ -6,6 +6,6 @@ int main() {
 		i = 1;
 	else
 		i = 2;
-	nemu_assert(i == 0);
+	nemu_assert(i == 1);
 	return 0;
 }
