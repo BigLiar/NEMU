@@ -112,7 +112,7 @@ static inline make_DopHelper(O) {
 /* Yb, Yv */
 static inline make_DopHelper(Y) {
   op->type = OP_TYPE_MEM;
-  op->addr = decoding.is_operand_size_16 ? cpu.gpr[7],_16 : cpu.edi;
+  op->addr = decoding.is_operand_size_16 ? cpu.gpr[7]._16 : cpu.edi;
   if (load_val) {
     rtl_lm(&op->val, &op->addr, op->width);
   }
