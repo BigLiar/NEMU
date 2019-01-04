@@ -6,11 +6,18 @@
 //#define HAS_VME
 
 #define printk printf
-#define off_t int
-#define mode_t int
+
 #include <am.h>
 #include <klib.h>
 #include "debug.h"
+
+#ifndef off_t
+#define off_t int
+#endif
+
+#ifndef mode_t
+#define mode_t int
+#endif
 
 typedef char bool;
 #define true 1

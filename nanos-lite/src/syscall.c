@@ -1,5 +1,7 @@
 #include "common.h"
 #include "syscall.h"
+#include "proc.h"
+
 _Context* do_syscall(_Context *c) {
   uintptr_t a[4];
   a[0] = c->GPR1;
@@ -11,8 +13,10 @@ _Context* do_syscall(_Context *c) {
 			_yield();
 			c->GPRx = 0;
 			break;
-		case SYS_exit: 
-			_halt(a[1]);
+		case SYS_exit:
+		 // _halt(a[1]);	
+			sys_close(sys_open("/bin/init"));
+			naive_uload(NULL, "/bin/init", 0, 0);
 			c->GPRx = 0;
 			break;
 		case SYS_write: 
@@ -32,6 +36,10 @@ _Context* do_syscall(_Context *c) {
 			break;
 
 		case SYS_brk:
+			c->GPRx = 0;
+			break;
+		case SYS_execve:
+			naive_uload(NULL, (char *) a[1]);
 			c->GPRx = 0;
 			break;
     default: panic("Unhandled syscall ID = %d", a[0]);

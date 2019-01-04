@@ -79,7 +79,7 @@ size_t fb_write(const void *buf, size_t offset, size_t len) {
 	ctl.w = 1;
 	ctl.h = 1;
 	int i;
-	for(i = 0; i < len; ++i){
+	for(i = 0; i < len / 4; ++i){
  		if(ctl.y == H - 1 && ctl.x == W - 1)
 			return i; 	
 		dev->write(_DEVREG_VIDEO_FBCTL, &ctl, sizeof(ctl));
@@ -88,7 +88,7 @@ size_t fb_write(const void *buf, size_t offset, size_t len) {
 	 	ctl.x %= W;	
 		ctl.pixels++;
 	}		
-	return i;
+	return i * 4;
 }
 
 void init_device() {
