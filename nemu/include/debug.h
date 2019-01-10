@@ -6,6 +6,7 @@
 #include <assert.h>
 
 #ifdef DEBUG
+volatile static int dummy;
 extern FILE* log_fp;
 #	define Log_write(format, ...) \
   do { \
@@ -44,6 +45,6 @@ extern FILE* log_fp;
   Assert(0, format, ## __VA_ARGS__)
 
 #define TODO() panic("please implement me")
-volatile static int dummy;
+
 
 #endif
