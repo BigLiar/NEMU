@@ -15,8 +15,8 @@ _Context* do_syscall(_Context *c) {
 			break;
 		case SYS_exit:
 		 // _halt(a[1]);	
-			sys_close(sys_open("/bin/init"));
-			naive_uload(NULL, "/bin/init", 0, 0);
+			sys_close(sys_open("/bin/init", 0, 0));
+			naive_uload(NULL, "/bin/init");
 			c->GPRx = 0;
 			break;
 		case SYS_write: 
